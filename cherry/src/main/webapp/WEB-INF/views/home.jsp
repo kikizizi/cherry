@@ -22,25 +22,26 @@
 <style>
 body {
 	font-family: 'Varela Round', sans-serif;
-	background-color: #fc9091;
 }
 
 .navbar {
-	background-color: #FCEEE4;
+	background-color: white;
 	height: 75px;
 	text-align: center;
-	position: fixed;
-	width: 100%
+	width: 100%;
+	border-bottom: solid 0.5px #80808026;
 }
 
 .navbar .navbar-brand {
 	color: #777777;
-	font-size: 25px
+	font-size: 25px;
+	margin-top: -13px;
 }
 
 .navbar .navbar-brand b {
+	line-height:1;
 	font-weight: bold;
-	color: #eb5844;
+	color: #ff003b;
 }
 
 .container-fluid {
@@ -52,10 +53,14 @@ body {
 #navli {
 	width: 1000px;
 	margin-left: 50px;
+	display: flex;
 }
 
 #navDiv {
 	height: 75px;
+	position:fixed;
+	width:100%;
+	
 }
 
 #m1 {
@@ -66,7 +71,6 @@ body {
 #m2 {
 	width: 800px;
 	margin-top: 30px;
-	background-color: #FCEEE4;
 	border-radius: 10px;
 	margin-bottom: 30px;
 }
@@ -93,7 +97,6 @@ body {
 
 .search-box .input-group-btn .btn {
 	border-color: #eb5844;
-	background: #eb5844;
 	outline: none;
 }
 
@@ -169,7 +172,7 @@ body {
 }
 
 #footerDiv {
-	background-color: #FCEEE4;
+	
 }
 
 #footer {
@@ -181,7 +184,7 @@ body {
 }
 
 #footer-brand {
-	margin-right:400px;
+	margin-right: 400px;
 	color: #777777;
 	font-size: 25px
 }
@@ -193,15 +196,46 @@ body {
 
 #gitlink {
 	color: black;
+	
+}
+
+#loginbar {
+	height: 21.5px;
+	background-color: #f7e3e5;
+	text-align:center;
+
+}
+
+#loginbar a {
+	color: white;
+	font-size: 13px;
+}
+
+#btn-search {
+	background-color: #ff4973;
+}
+#loginbar > div{
+	width: 1000px;
+	text-align: right;
+	margin:auto;
 }
 </style>
 </head>
 <body>
+
 	<div id="navDiv">
-		<nav class="navbar navbar-default navbar-expand-lg navbar-light">
+		<div id="loginbar">
+			<div>
+				<a href="">login</a>&emsp;<a href="">signUp</a>
+			</div>
+		</div>
+		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container-fluid">
-				<a class="navbar-brand"
-					href="${pageContext.request.contextPath }/home.do">Cherry<b>Market</b></a>
+				<div class="navbar-brand">
+					<a href="${pageContext.request.contextPath }/home.do"><b>CHERRY
+							Market</b></a>
+				</div>
+
 				<div id="navli">
 
 					<!-- 검색바 -->
@@ -232,14 +266,28 @@ body {
 							<input type="text" id="search" name="search" class="form-control"
 								placeholder="Search for..."> <span
 								class="input-group-btn">
-								<button id="btn-search" type="submit" class="btn btn-default"
-									style="background-color: #fc9091;">
+								<button id="btn-search" type="submit" class="btn btn-default">
 									<span class="glyphicon glyphicon-search" style="color: white;"></span>
 								</button>
 							</span>
 						</div>
 					</form>
-
+					<div style="margin-left: 50px; margin-top: 10px; color: #ff003b;">
+						<a href="" style="color: #ff4973; margin-right: 20px"> <svg
+								xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+								fill="currentColor" class="bi bi-person-fill"
+								viewBox="0 0 16 16">
+	  <path
+									d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+	</svg>
+						</a> <a href="" style="color: #ff4973"> <svg
+								xmlns="http://www.w3.org/2000/svg" width="28" height="28"
+								fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+	  <path
+									d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+	</svg>
+						</a>
+					</div>
 				</div>
 			</div>
 		</nav>
