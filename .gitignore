@@ -1,6 +1,7 @@
 /.metadata/
 /build/
-
+pom.properties
+MANIFEST.MF
 ### Eclipse ###
 .metadata
 bin/
@@ -135,3 +136,4 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+
