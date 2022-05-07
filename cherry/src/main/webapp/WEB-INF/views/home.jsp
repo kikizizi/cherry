@@ -254,7 +254,7 @@ body {
 	<div id="navDiv">
 		<div id="loginbar">
 			<div>
-				<a href="">login</a>&emsp;<a href="signupform.do">signUp</a>
+				<a href="loginform.do">login</a>&emsp;<a href="signupform.do">signUp</a>
 			</div>
 		</div>
 		<nav class="navbar navbar-expand-lg navbar-light">
@@ -380,6 +380,7 @@ body {
 				toogleBtn.first().removeClass("hide");
 			});
 		});
+
 	</script>
 </body>
 </html>

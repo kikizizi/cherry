@@ -20,6 +20,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 /* 기본 효과 없앰 */
 a:visited {
@@ -134,6 +135,20 @@ small{
 				$('#id').addClass('is-invalid');
 				return;
 			}
+			$.ajax({
+				url:"checkId.do",
+				data:{"id":inputId},
+				method:"GET",
+				dataType:"json"
+			})
+			.done(function(data){
+				if (data){
+					console.log(data);
+					idPass=false;
+					$('#id').addClass('is-invalid');
+					return;
+				}
+			})
 			$('#id').addClass('is-valid');
 			idPass=true;
 		})
@@ -177,9 +192,14 @@ small{
 		$('#submitBtn').click(function(e){
 			e.preventDefault();
 			if(idPass&&pwdPass&&emailPass){
-				$('form').submit();
+				swal("회원가입 되었습니다")
+				.then(()=>{
+					$('form').submit();	
+				})
 			}
 		})
+		
+		
 	</script>
 </body>
 </html>
