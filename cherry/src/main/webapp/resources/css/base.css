@@ -1,0 +1,21 @@
+@charset "UTF-8";
+/* 기본 효과 없앰 */
+a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+input:focus {
+	outline: none;
+}
+
+body {
+	font-family: 'Varela Round', sans-serif;
+}

@@ -1,0 +1,27 @@
+@charset "UTF-8";
+/* footer css start */
+#footerDiv {
+	width: 100%;
+	margin: 0px;
+	background-color: #f7e3e5;
+}
+
+.footerLink {
+	text-align: center;
+	margin: 25px 0px 25px 0px;
+}
+
+#footer-brand {
+	font-size: 25px;
+}
+
+#footer-brand b {
+	line-height: 0.9;
+	font-weight: bold;
+	color: white;
+}
+
+#gitlink {
+	color: white;
+}
+/* footer css end */

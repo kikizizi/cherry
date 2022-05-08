@@ -1,0 +1,174 @@
+@charset "UTF-8";
+/* navbar css*/
+.navbar {
+	background-color: white;
+	height: 75px;
+	text-align: center;
+	width: 100%;
+	border-bottom: solid 0.5px #80808026;
+}
+
+.navbar .navbar-brand {
+	font-size: 25px;
+	margin-top: -13px;
+}
+
+.navbar .navbar-brand b {
+	line-height: 0.9;
+	font-weight: bold;
+	color: #ff003b;
+}
+
+.container-fluid {
+	width: 1000px;
+	display: flex;
+	margin-top: 13px
+}
+
+#navli {
+	width: 1000px;
+	display: flex;
+}
+
+#navDiv {
+	height: 75px;
+	position: fixed;
+	width: 100%;
+}
+
+.input-group {
+	width: 400px;
+	margin-top: 8px
+}
+
+.search-box {
+	width: 100%;
+	position: relative;
+}
+
+.search-box input {
+	border-color: #dfe3e8;
+	box-shadow: none
+}
+
+.search-box input, .search-box .btn {
+	min-height: 38px;
+	border-radius: 2px;
+}
+
+.search-box .input-group-btn .btn {
+	border-color: #eb5844;
+	outline: none;
+}
+#search{
+	border-radius:4px;
+}
+.navbar ul li i {
+	font-size: 18px;
+	line-height: 16px;
+}
+
+.navbar .navbar-right .dropdown-toggle::after {
+	display: none;
+}
+
+.dropdown-toggle {
+	width: 80px;
+	font-size: 12px;
+	height: 34px;
+}
+
+.navbar .dropdown-menu {
+	border-radius: 1px;
+	border-color: #e5e5e5;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
+}
+
+.navbar .dropdown-menu li a {
+	padding: 6px 20px;
+}
+
+.navbar .navbar-right .dropdown-menu {
+	width: 400px;
+	padding: 20px;
+	left: auto;
+	right: 0;
+	font-size: 14px;
+}
+
+.hide {
+	display: none !important;
+}
+
+@media ( max-width : 768px) {
+	.navbar .navbar-right .dropdown-menu {
+		width: 100%;
+		background: transparent;
+		padding: 10px 20px;
+	}
+	.navbar .input-group {
+		width: 100%;
+	}
+	#textBox {
+		width: 500px;
+		height: 450px;
+		overflow: auto;
+		overflow-y: 450px;
+	}
+	.loginbar {
+		width: 100%;
+		float: right;
+		display: inline-block;
+	}
+	select {
+		width: 200px;
+		padding: .8em .5em;
+		border: 1px solid #999;
+		font-family: inherit;
+		background: url('arrow.jpg') no-repeat 95% 50%;
+		border-radius: 0px;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+	}
+	select::-ms-expand {
+		display: none;
+	}
+}
+
+#loginbar {
+	height: 21.5px;
+	background-color: #f7e3e5;
+	text-align: center;
+}
+
+#loginbar a {
+	color: white;
+	font-size: 13px;
+}
+
+#btn-search {
+	background-color: #ff4973;
+}
+
+#loginbar>div {
+	width: 1000px;
+	text-align: right;
+	margin: auto;
+}
+
+#iconDiv {
+	margin-top: 10px;
+	text-align: right;
+	width: 100%;
+}
+
+#iconDiv>div>a {
+	color: #ff4973;
+	margin-left: 20px
+}
+loginbar p{
+	color: white;
+	font-size: 13px;
+}
+/* navbar css 끝*/
