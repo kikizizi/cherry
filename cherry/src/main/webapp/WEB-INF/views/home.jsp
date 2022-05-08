@@ -321,6 +321,7 @@ body {
 	</div>
 	<div id="m1">
 		<div id="m2">
+			<h1>${sessionScope.id}</h1>
 			<h1>test</h1>
 			<h1>test</h1>
 			<h1>test</h1>

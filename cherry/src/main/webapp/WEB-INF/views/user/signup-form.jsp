@@ -143,7 +143,6 @@ small{
 			})
 			.done(function(data){
 				if (data){
-					console.log(data);
 					idPass=false;
 					$('#id').addClass('is-invalid');
 					return;

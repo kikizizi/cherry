@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그인</title>
+<link href="https://fonts.googleapis.com/css?family=Varela+Round"
+	rel="stylesheet">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style>
 /* 기본 효과 없앰 */
 a:visited {
@@ -60,7 +64,7 @@ input {
 }
 
 button {
-	margin-top: 60px;
+	margin-top: 30px;
 	font-size: 17px;
 	width: 400px;
 	height: 50px;
@@ -69,22 +73,48 @@ button {
 	border: none;
 	border-radius: 5px;
 }
+
+p {
+	color: red;
+	font-size: 12px;
+}
 </style>
 </head>
 <body>
-<div id="main">
-	<div id="brand">
-		<a href="home.do"> <b>CHERRY</b><br /> <b>Market</b></a>
+	<div id="main">
+		<div id="brand">
+			<a href="home.do"> <b>CHERRY</b><br /> <b>Market</b></a>
+		</div>
+		<form action="home.do" method="post" id="mainform">
+			<div>
+				<input type="text" id="id" name="id" placeholder="아이디" />
+			</div>
+			<div>
+				<input type="password" id="pwd" name="pwd" placeholder="비밀번호" />
+			</div>
+			<p id="fail"></p>
+			<button id="submitBtn">LOG IN</button>
+		</form>
 	</div>
-	<form action="login.do" method="post">
-		<div>
-			<input type="text" id="id" name="id" placeholder="ID"/>
-		</div>
-		<div>
-			<input type="password" id="pwd" name="pwd" placeholder="PASSWORD"/>
-		</div>
-		<button id="submitBtn">LOG IN</button>
-	</form>
-</div>
+	<script>
+		$("#submitBtn").click(function(e) {
+			e.preventDefault();
+			$.ajax({
+				url : "login.do",
+				data : {
+					"id" : $('#id').val(),
+					"pwd" : $('#pwd').val()
+				},
+				method : "POST",
+				dataType : "json"
+			}).done(function(data) {
+				if (data) {
+					$("#mainform").submit();
+				} else {
+					$("#fail").html("아이디나 비밀번호가 올바르지 않습니다.");
+				}
+			})
+		})
+	</script>
 </body>
 </html>

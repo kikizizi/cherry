@@ -32,17 +32,17 @@ public class userServiceImpl implements userService{
 
 	@Override
 	public boolean checkPwd(userDto dto,HttpSession session) {
-//		userDto userData=dao.userData(dto.getId());
-//		if (userData==null) {
-//			return false;
-//		}
-//		String encodedPwd=userData.getPwd();
-//		String pwd=dto.getPwd();
-//		boolean pwdMatch=BCrypt.checkpw(pwd, encodedPwd);
-//		if (pwdMatch) {
-//			session.setAttribute("id",dto.getId());
-//			return true;
-//		}
+		userDto userData=dao.userData(dto.getId());
+		if (userData==null) {
+			return false;
+		}
+		String encodedPwd=userData.getPwd();
+		String pwd=dto.getPwd();
+		boolean pwdMatch=BCrypt.checkpw(pwd, encodedPwd);
+		if (pwdMatch) {
+			session.setAttribute("id",dto.getId());
+			return true;
+		}
 		return false;
 	}
 	

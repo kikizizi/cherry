@@ -29,15 +29,16 @@ public class userController {
 		req.setAttribute("fromSignup", 1);
 		return "redirect:loginform.do";
 	}
-	@RequestMapping("loginform.do")
+	@RequestMapping("/loginform.do")
 	public String loginform() {
 		return "user/loginform";
 	}
-//	@RequestMapping(value="login.do",method=RequestMethod.POST)
-//	public @ResponseBody boolean login(@RequestBody userDto dto,HttpSession session) {
-//		return Service.checkPwd(dto, session);
-//	}
-	@RequestMapping(value="checkId.do",method=RequestMethod.GET)
+	@RequestMapping(value="/login.do",method=RequestMethod.POST)
+	@ResponseBody
+	public boolean login(userDto dto,HttpSession session) {
+		return Service.checkPwd(dto, session);
+	}
+	@RequestMapping(value="/checkId.do",method=RequestMethod.GET)
 	public @ResponseBody boolean checkId(@RequestParam String id) {
 		return Service.checkId(id);
 	}
