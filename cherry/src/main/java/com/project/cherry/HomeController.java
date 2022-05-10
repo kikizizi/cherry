@@ -10,5 +10,8 @@ public class HomeController {
 	public String home() {
 		return "home";
 	}
-	
+	@RequestMapping("/sell.do")
+	public String sell() {
+		return "goods/uploadform";
+	}
 }

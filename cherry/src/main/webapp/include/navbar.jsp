@@ -43,7 +43,7 @@
 				</form>
 				<div id="iconDiv">
 					<div>
-						<a href=""><svg xmlns="http://www.w3.org/2000/svg" width="32"
+						<a href="sell.do"><svg xmlns="http://www.w3.org/2000/svg" width="32"
 								height="32" fill="currentColor" class="bi bi-cash"
 								viewBox="0 0 16 16">
   <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
