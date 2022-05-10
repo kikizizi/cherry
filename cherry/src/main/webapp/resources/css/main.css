@@ -1,0 +1,15 @@
+@charset "UTF-8";
+/* main content start */
+#m1 {
+	display: flex;
+	justify-content: center;
+}
+
+#m2 {
+	width: 800px;
+	margin-top: 120px;
+	border-radius: 10px;
+	margin-bottom: 30px;
+	border: solid 0.5px #80808026;
+}
+/* main content end */

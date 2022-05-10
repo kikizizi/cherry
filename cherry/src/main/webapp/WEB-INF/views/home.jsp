@@ -22,22 +22,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/navbar.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/footer.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/base.css" />
-<style>
-/* main content start */
-#m1 {
-	display: flex;
-	justify-content: center;
-}
-
-#m2 {
-	width: 800px;
-	margin-top: 120px;
-	border-radius: 10px;
-	margin-bottom: 30px;
-	border: solid 0.5px #80808026;
-}
-/* main content end */
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/main.css" />
 </head>
 <body>
 	<jsp:include page="/include/navbar.jsp"></jsp:include>
@@ -68,7 +53,6 @@
 			<h1>test</h1>
 			<h1>test</h1>
 			<h1>test</h1>
-			
 		</div>
 	</div>
 	<jsp:include page="/include/footer.jsp"></jsp:include>
