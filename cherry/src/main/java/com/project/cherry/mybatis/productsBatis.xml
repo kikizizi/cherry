@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="products">
+	<insert id="addProduct"
+		parameterType="com.project.cherry.products.productsDto">
+		insert into products
+		(num,title,priceWon,id,isSaled,viewCount,wishCount,
+		category,imgPaths,explanation,regdate)
+		values(product_seq.nextval,#{title},#{priceWon},#{id},0,
+		0,0,#{category},#{imgPaths},#{explanation},sysdate)
+	</insert>
+	
+</mapper>
