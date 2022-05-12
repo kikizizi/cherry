@@ -172,7 +172,12 @@
 		    <artifactId>ojdbc8</artifactId>
 		    <version>21.1.0.0</version>
 		</dependency>
-		
+		        <!-- gson 추가-->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.9.0</version>
+		</dependency>
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

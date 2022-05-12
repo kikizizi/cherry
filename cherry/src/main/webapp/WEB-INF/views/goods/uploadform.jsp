@@ -51,27 +51,31 @@ label {
 input[type=file] {
 	display: none;
 }
-#submitBtn{
-  font-size: 15px;
-  height: 30px;
-  background-color: #ff4973;
-  color: white;
-  border: none;
-  border-radius: 5px;
-	margin-top:20px;
+
+#submitBtn {
+	font-size: 15px;
+	height: 30px;
+	background-color: #ff4973;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	margin-top: 20px;
 }
-textarea{
-	width:86%;
-	resize:none;
-	outline:none;
+
+textarea {
+	width: 86%;
+	resize: none;
+	outline: none;
 }
-#buttonDiv{
-	width:100%;
-	text-align:center;
+
+#buttonDiv {
+	width: 100%;
+	text-align: center;
 }
-p{
-	width:100%;
-	margin:10px 0 0 0;
+
+p {
+	width: 100%;
+	margin: 10px 0 0 0;
 }
 </style>
 </head>
@@ -84,7 +88,8 @@ p{
 					<h3>상품판매등록</h3>
 				</div>
 				<hr style="border: solid 1px black" />
-				<form action="home.do" method="post" enctype="multipart/form-data" id="addForm">
+				<form action="goodsupload.do" method="post" enctype="multipart/form-data"
+					id="addForm">
 					<div class="inputDiv">
 						<label for="title">제목</label> <input type="text" id="title"
 							name="title" />
@@ -117,18 +122,22 @@ p{
 					<div class="inputDiv">
 						<label for="picture">사진등록</label>
 						<div>
-							<button id="addBtn">+</button><small>&emsp;최대 5장 등록가능</small>
-							<br />
+							<button id="addBtn">+</button>
+							<small>&emsp;최대 5장 등록가능</small> <br />
 							<div id="imgDiv">
-								<input type="file" id="addImage" class="imageInputs" onchange="inputChange()"
+								<input type="file" id="addImage" class="imageInputs"
+									onchange="inputChange()"
 									accept=".jpg, .jpeg, .png, .JPG, .JPEG, .gif" />
 							</div>
 						</div>
 					</div>
 					<hr />
 					<div class="inputDiv">
-						<label for="explanation">설명</label><br />
-						<textarea name="explanation" id="explanation" cols="30" rows="15"></textarea>
+						<div>
+							<label for="explanation">설명</label><br /> <small id="charNum">0자/2000자</small>
+						</div>
+						<textarea name="explanation" id="explanation" cols="30" rows="15"
+							maxlength="2000"></textarea>
 					</div>
 				</form>
 				<div id="buttonDiv">
@@ -142,46 +151,50 @@ p{
 		let img_num = 0;
 		$("#addBtn").click(function(e) {
 			e.preventDefault();
-			if ($('.imageInputs').length<6){
+			if ($('.imageInputs').length < 6) {
 				$("#addImage").trigger("click");
 			}
 		})
-		function inputChange(){
+		function inputChange() {
 			var fileInput = document.getElementById("addImage");
 			var file_name = fileInput.files[0].name // 파일명
-			new_p=document.createElement('p');
-			new_p.innerText=file_name+' ';
-			new_p.setAttribute('class','img'+img_num);
-			new_b=document.createElement('button');
-			new_b.setAttribute('class','img'+img_num);
-			new_b.setAttribute("onclick","delClass('img"+img_num+"')");
-			new_b.setAttribute('type','button');
-			new_b.innerText='x';
+			new_p = document.createElement('p');
+			new_p.innerText = file_name + ' ';
+			new_p.setAttribute('class', 'img' + img_num);
+			new_b = document.createElement('button');
+			new_b.setAttribute('class', 'img' + img_num);
+			new_b.setAttribute("onclick", "delClass('img" + img_num + "')");
+			new_b.setAttribute('type', 'button');
+			new_b.innerText = 'x';
 			new_p.appendChild(new_b);
 			$('#imgDiv').append(new_p);
-			$('#addImage').attr('class','imageInputs img'+img_num);
+			$('#addImage').attr('class', 'imageInputs img' + img_num);
 			$('#addImage').removeAttr('id');
 			var new_input = document.createElement('input');
-			new_input.setAttribute('type','file');
-			new_input.setAttribute('id','addImage');
-			new_input.setAttribute('class','imageInputs');
-			new_input.setAttribute('onchange','inputChange()')
-			new_input.setAttribute('accept','.jpg, .jpeg, .png, .JPG, .JPEG, .gif');
+			new_input.setAttribute('type', 'file');
+			new_input.setAttribute('id', 'addImage');
+			new_input.setAttribute('class', 'imageInputs');
+			new_input.setAttribute('onchange', 'inputChange()')
+			new_input.setAttribute('accept',
+					'.jpg, .jpeg, .png, .JPG, .JPEG, .gif');
 			$('#imgDiv').append(new_input);
-			img_num+=1
+			img_num += 1
 		}
-		var delClass=function(c){
-			$('.'+c).remove();
+		var delClass = function(c) {
+			$('.' + c).remove();
 		}
-		$('#submitBtn').click(function(e){
+		$('#submitBtn').click(function(e) {
 			e.preventDefault();
-			
-			let imgs=$('.imageInputs');
-			for (let i=0;i<imgs.length;i++){
-				imgs[i].setAttribute('name','img'+i);
+
+			let imgs = $('.imageInputs');
+			for (let i = 0; i < imgs.length; i++) {
+				imgs[i].setAttribute('name', 'img' + i);
 			}
 			$('#addImage').remove();
-			//$('#addForm').submit();
+			$('#addForm').submit();
+		})
+		$('#explanation').keyup(function() {
+			$('#charNum').text($('#explanation').val().length+'자/2000자');
 		})
 	</script>
 </body>

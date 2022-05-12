@@ -8,3 +8,18 @@ create table users(
 
 create sequence users_seq;
 
+create table products(
+	num number primary key,
+	title varchar2(200),
+	priceWon varchar2(50),
+	id varchar2(100),
+	isSaled number,
+	viewCount number,
+	wishCount number,
+	category varchar2(100),
+	imgPaths varchar2(300),
+	explanation long, 
+	regdate date
+);
+
+create sequence product_seq;
