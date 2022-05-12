@@ -60,9 +60,7 @@
 	border-color: #eb5844;
 	outline: none;
 }
-#search{
-	border-radius:4px;
-}
+
 .navbar ul li i {
 	font-size: 18px;
 	line-height: 16px;
@@ -76,6 +74,7 @@
 	width: 80px;
 	font-size: 12px;
 	height: 34px;
+	padding:0;
 }
 
 .navbar .dropdown-menu {

@@ -32,6 +32,28 @@
 				<!-- 검색바 -->
 				<form action="${pageContext.request.contextPath }/home.do">
 					<div class="input-group">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span id="srch-category">전체</span>
+							</button>
+							<ul class="dropdown-menu" id="categorySelect">
+								<li><a href="" class="cm">전체</a></li>
+								<li><a href="" class="cm">디지털기기</a></li>
+								<li><a href="" class="cm">생활가전</a></li>
+								<li><a href="" class="cm">가구</a></li>
+								<li><a href="" class="cm">스포츠/레저</a></li>
+								<li><a href="" class="cm">여성패션</a></li>
+								<li><a href="" class="cm">남성패션</a></li>
+								<li><a href="" class="cm">게임/취미</a></li>
+								<li><a href="" class="cm">뷰티/미용</a></li>
+								<li><a href="" class="cm">반려동물</a></li>
+								<li><a href="" class="cm">도서/음반</a></li>
+								<li><a href="" class="cm">기타</a></li>
+								<li><a href="" class="cm">삽니다</a></li>
+							</ul>
+						</div>
+						<input type="hidden" id="category" name="category" value="전체">
 						<input type="text" id="search" name="search" class="form-control"
 							placeholder="Search for..."> <span
 							class="input-group-btn">
@@ -43,8 +65,8 @@
 				</form>
 				<div id="iconDiv">
 					<div>
-						<a href="sell.do"><svg xmlns="http://www.w3.org/2000/svg" width="32"
-								height="32" fill="currentColor" class="bi bi-cash"
+						<a href="sell.do"><svg xmlns="http://www.w3.org/2000/svg"
+								width="32" height="32" fill="currentColor" class="bi bi-cash"
 								viewBox="0 0 16 16">
   <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
   <path
