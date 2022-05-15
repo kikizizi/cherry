@@ -4,11 +4,14 @@
 	width: 100%;
 	margin: 0px;
 	background-color: #f7e3e5;
+	padding:30px 0px;
 }
 
 .footerLink {
 	text-align: center;
 	margin: 25px 0px 25px 0px;
+	color: white;
+	font-size:20px;
 }
 
 #footer-brand {
@@ -20,8 +23,8 @@
 	font-weight: bold;
 	color: white;
 }
-
-#gitlink {
-	color: white;
+.footerLink a{
+	color:white;
 }
+
 /* footer css end */
