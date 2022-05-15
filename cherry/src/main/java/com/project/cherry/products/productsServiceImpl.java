@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -117,6 +118,39 @@ public class productsServiceImpl implements productsService {
 		String imgPaths=new Gson().toJson(imgPathsList);
 		dto.setImgPaths(imgPaths);
 		dao.addProduct(dto);
+	}
+	@Override
+	public HashMap<String, Object> getProductList(String category,int num,String search) {
+		productsDto dto = new productsDto();
+		if (category==null) {
+			dto.setCategory("전체");
+		}else {
+			dto.setCategory(category);
+		}
+		dto.setNum(num);
+		if (search!=null && search.equals("")) {
+			search=null;
+		}
+		dto.setSearch(search);
+		List<productsDto> list=dao.getProdcutList(dto);
+		int lastnum=0;
+		for(productsDto dto1:list) {
+			String jsonImgPaths=dto1.getImgPaths();
+			List<String> imgPathList = new Gson().fromJson(jsonImgPaths, List.class);
+			dto1.setImgPathList(imgPathList);
+			String regdate=dto1.getRegdate();
+			dto1.setRegdate(changeRegdate(regdate));
+			lastnum=dto1.getNum();
+		}
+		boolean isEnd = false;
+		if(dao.getMinNum(dto)==lastnum) {
+			isEnd=true;
+		}
+		HashMap<String, Object> map =new HashMap<String, Object>();
+		map.put("lastnum",lastnum);
+		map.put("list",list);
+		map.put("isEnd",isEnd);
+		return map;
 	}
 	
 }

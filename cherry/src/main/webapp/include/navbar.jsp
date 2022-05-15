@@ -35,7 +35,14 @@
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default dropdown-toggle"
 								data-toggle="dropdown">
-								<span id="srch-category">전체</span>
+								<c:choose>
+									<c:when test="${param.category eq null}">
+										<span id="srch-category">전체</span>
+									</c:when>
+									<c:otherwise>
+										<span id="srch-category">${param.category }</span>
+									</c:otherwise>
+								</c:choose>
 							</button>
 							<ul class="dropdown-menu" id="categorySelect">
 								<li><a href="" class="cm">전체</a></li>
@@ -53,9 +60,25 @@
 								<li><a href="" class="cm">삽니다</a></li>
 							</ul>
 						</div>
-						<input type="hidden" id="category" name="category" value="전체">
-						<input type="text" id="search" name="search" class="form-control"
-							placeholder="Search for..."> <span
+						<c:choose>
+							<c:when test="${param.category eq null}">
+										<input type="hidden" id="category" name="category" value="전체">
+									</c:when>
+									<c:otherwise>
+										<input type="hidden" id="category" name="category" value="${param.category }">
+									</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${param.search eq null}">
+								<input type="text" id="search" name="search" class="form-control"
+							placeholder="Search for...">								
+							</c:when>
+							<c:otherwise>
+								<input type="text" id="search" name="search" class="form-control"
+							value="${param.search }">
+							</c:otherwise>
+						</c:choose>
+						 <span
 							class="input-group-btn">
 							<button id="btn-search" type="submit" class="btn btn-default">
 								<span class="glyphicon glyphicon-search" style="color: white;"></span>

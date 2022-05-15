@@ -27,6 +27,7 @@
 	href="${pageContext.request.contextPath }/resources/css/base.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/main.css" />
+<script src="${pageContext.request.contextPath }/resources/js/navbar.js"></script>
 <style>
 #formDiv {
 	padding: 10px;
@@ -88,8 +89,8 @@ p {
 					<h3>상품판매등록</h3>
 				</div>
 				<hr style="border: solid 1px black" />
-				<form action="goodsupload.do" method="post" enctype="multipart/form-data"
-					id="addForm">
+				<form action="goodsupload.do" method="post"
+					enctype="multipart/form-data" id="addForm">
 					<div class="inputDiv">
 						<label for="title">제목</label> <input type="text" id="title"
 							name="title" />
@@ -148,13 +149,6 @@ p {
 	</div>
 	<jsp:include page="/include/footer.jsp"></jsp:include>
 	<script>
-		let img_num = 0;
-		$("#addBtn").click(function(e) {
-			e.preventDefault();
-			if ($('.imageInputs').length < 6) {
-				$("#addImage").trigger("click");
-			}
-		})
 		function inputChange() {
 			var fileInput = document.getElementById("addImage");
 			var file_name = fileInput.files[0].name // 파일명
@@ -183,6 +177,14 @@ p {
 		var delClass = function(c) {
 			$('.' + c).remove();
 		}
+		let img_num = 0;
+		$("#addBtn").click(function(e) {
+			e.preventDefault();
+			if ($('.imageInputs').length < 6) {
+				$("#addImage").trigger("click");
+			}
+		})
+
 		$('#submitBtn').click(function(e) {
 			e.preventDefault();
 
@@ -194,8 +196,9 @@ p {
 			$('#addForm').submit();
 		})
 		$('#explanation').keyup(function() {
-			$('#charNum').text($('#explanation').val().length+'자/2000자');
+			$('#charNum').text($('#explanation').val().length + '자/2000자');
 		})
 	</script>
+
 </body>
 </html>

@@ -18,7 +18,7 @@ create table products(
 	wishCount number,
 	category varchar2(100),
 	imgPaths varchar2(300),
-	explanation long, 
+	explanation varchar2(4000), 
 	regdate date
 );
 

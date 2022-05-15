@@ -21,8 +21,6 @@ public class productsDto {
 	private MultipartFile img4;
 	private String explanation;
 	private String regdate;
-	private int startRowNum;
-	private int endRowNum;
 	private String search;
 	private String priceWon;
 	private int isWish;
@@ -32,8 +30,8 @@ public class productsDto {
 
 	public productsDto(int num, String id, int price, String title, int isSaled, String category, int viewCount,
 			String imgPaths, List<String> imgPathList, MultipartFile img0, MultipartFile img1, MultipartFile img2,
-			MultipartFile img3, MultipartFile img4, String explanation, String regdate, int startRowNum, int endRowNum,
-			String search, String priceWon, int isWish, int wishCount) {
+			MultipartFile img3, MultipartFile img4, String explanation, String regdate, String search, String priceWon,
+			int isWish, int wishCount) {
 		super();
 		this.num = num;
 		this.id = id;
@@ -51,8 +49,6 @@ public class productsDto {
 		this.img4 = img4;
 		this.explanation = explanation;
 		this.regdate = regdate;
-		this.startRowNum = startRowNum;
-		this.endRowNum = endRowNum;
 		this.search = search;
 		this.priceWon = priceWon;
 		this.isWish = isWish;
@@ -185,22 +181,6 @@ public class productsDto {
 
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
-	}
-
-	public int getStartRowNum() {
-		return startRowNum;
-	}
-
-	public void setStartRowNum(int startRowNum) {
-		this.startRowNum = startRowNum;
-	}
-
-	public int getEndRowNum() {
-		return endRowNum;
-	}
-
-	public void setEndRowNum(int endRowNum) {
-		this.endRowNum = endRowNum;
 	}
 
 	public String getSearch() {

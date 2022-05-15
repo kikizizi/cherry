@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="products">
+	<sql id="searchCondition">
+		<choose>
+			<when test="category !='전체' and search!=null">
+				where (title like '%'||#{search}||'%'
+				or explanation like '%'||#{search}||'%')
+				and category=#{category} and #{num}>num 
+			</when>
+			<when test="search!=null">
+				where (title like '%'||#{search}||'%'
+				or explanation like '%'||#{search}||'%') and #{num}>=num 
+			</when>
+			<when test="category!='전체'">
+				where category=#{category} and #{num}>num 
+			</when>
+			<otherwise>
+				where #{num}>num
+			</otherwise>
+		</choose>
+	</sql>
+
 	<insert id="addProduct"
 		parameterType="com.project.cherry.products.productsDto">
 		insert into products
@@ -10,4 +30,26 @@
 		0,0,#{category},#{imgPaths},#{explanation},sysdate)
 	</insert>
 	
+	<select id="productList"
+		parameterType="com.project.cherry.products.productsDto"
+		resultType="com.project.cherry.products.productsDto">
+		SELECT *
+		FROM 	
+			(SELECT result1.*, ROWNUM as rnum
+			FROM
+				(SELECT * 
+				FROM products
+				<include refid="searchCondition"/>
+				ORDER BY num DESC) result1)
+		WHERE issaled=0 and rnum between 1 and 6
+	</select>
+	
+	<select id="minNum" resultType="int" parameterType="com.project.cherry.products.productsDto">
+		select min(num)
+		from 
+			(select num,issaled 
+			from products 
+			<include refid="searchCondition"/>)
+		where issaled=0
+	</select>
 </mapper>
