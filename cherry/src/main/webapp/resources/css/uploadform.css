@@ -1,0 +1,50 @@
+@charset "UTF-8";
+#formDiv {
+	padding: 10px;
+}
+
+.inputDiv {
+	display: flex;
+}
+
+label {
+	width: 85px;
+}
+
+#addBtn {
+	color: #ff4973;
+}
+
+#imagesDiv {
+	display: flex;
+}
+
+input[type=file] {
+	display: none;
+}
+
+#submitBtn {
+	font-size: 15px;
+	height: 30px;
+	background-color: #ff4973;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	margin-top: 20px;
+}
+
+textarea {
+	width: 86%;
+	resize: none;
+	outline: none;
+}
+
+#buttonDiv {
+	width: 100%;
+	text-align: center;
+}
+
+p {
+	width: 100%;
+	margin: 10px 0 0 0;
+}

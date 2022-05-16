@@ -23,8 +23,8 @@
 	<nav class="navbar navbar-expand-lg navbar-light">
 		<div class="container-fluid">
 			<div class="navbar-brand">
-				<a href="${pageContext.request.contextPath }/home.do"><b>CHERRY
-						Market</b></a>
+				<a href="${pageContext.request.contextPath }/home.do"><b>CHERRY</b><br />
+					<b>Market</b></a>
 			</div>
 
 			<div id="navli">
@@ -62,24 +62,24 @@
 						</div>
 						<c:choose>
 							<c:when test="${param.category eq null}">
-										<input type="hidden" id="category" name="category" value="전체">
-									</c:when>
-									<c:otherwise>
-										<input type="hidden" id="category" name="category" value="${param.category }">
-									</c:otherwise>
+								<input type="hidden" id="category" name="category" value="전체">
+							</c:when>
+							<c:otherwise>
+								<input type="hidden" id="category" name="category"
+									value="${param.category }">
+							</c:otherwise>
 						</c:choose>
 						<c:choose>
 							<c:when test="${param.search eq null}">
-								<input type="text" id="search" name="search" class="form-control"
-							placeholder="Search for...">								
+								<input type="text" id="search" name="search"
+									class="form-control" placeholder="Search for...">
 							</c:when>
 							<c:otherwise>
-								<input type="text" id="search" name="search" class="form-control"
-							value="${param.search }">
+								<input type="text" id="search" name="search"
+									class="form-control" value="${param.search }">
 							</c:otherwise>
 						</c:choose>
-						 <span
-							class="input-group-btn">
+						<span class="input-group-btn">
 							<button id="btn-search" type="submit" class="btn btn-default">
 								<span class="glyphicon glyphicon-search" style="color: white;"></span>
 							</button>

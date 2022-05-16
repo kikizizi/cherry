@@ -43,8 +43,9 @@
 }
 img{
 	width:200px;
-	height:200px;
+	height:150px;
 	border-radius:8px;
+	object-fit: cover;
 }
 .title{
 	text-overflow: ellipsis;
@@ -59,7 +60,7 @@ img{
 }
 .productsArticle{
 	display:inline-block;
-	margin:10px 21px;
+	margin:15px 21px;
 }
 #productsDiv{
 	padding:30px;
