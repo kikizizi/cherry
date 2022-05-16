@@ -29,6 +29,13 @@ public class productsDaoImpl implements productsDao{
 			return 0;
 		}
 	}
+
+	@Override
+	public productsDto getDetail(int num) {
+		session.update("products.addViewCount",num);
+		productsDto dto=session.selectOne("products.getDetail",num);
+		return dto;
+	}
 	
 	
 }

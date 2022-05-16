@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
@@ -151,6 +152,17 @@ public class productsServiceImpl implements productsService {
 		map.put("list",list);
 		map.put("isEnd",isEnd);
 		return map;
+	}
+	@Override
+	public void getDetail(HttpServletRequest req) {
+		int num=Integer.parseInt(req.getParameter("num"));
+		productsDto dto=dao.getDetail(num);
+		String jsonImgPaths=dto.getImgPaths();
+		List<String> imgPathList = new Gson().fromJson(jsonImgPaths, List.class);
+		dto.setImgPathList(imgPathList);
+		String regdate=dto.getRegdate();
+		dto.setRegdate(changeRegdate(regdate));
+		req.setAttribute("dto",dto);
 	}
 	
 }

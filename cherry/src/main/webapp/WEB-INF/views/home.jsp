@@ -50,6 +50,7 @@ img{
 	text-overflow: ellipsis;
 	font-weight: 600;
 	margin: 7px 0px 0px;
+	color:black;
 }
 .priceWon{
 	color:#ff003b;
@@ -87,11 +88,13 @@ img{
 					</c:when>
 					<c:otherwise>
 						<c:forEach var="dto" items="${list }">
-							<article class="productsArticle">
-								<img src="${pageContext.request.contextPath }${dto.imgPathList[0]}" alt="" />
-								<p class="title">${dto.title}</p>
-								<p class="priceWon">${dto.priceWon }</p>
-							</article>
+							<a href="detail.do?num=${dto.num }">
+								<article class="productsArticle">
+									<img src="${pageContext.request.contextPath }${dto.imgPathList[0]}" alt="" />
+									<p class="title">${dto.title}</p>
+									<p class="priceWon">${dto.priceWon }</p>
+								</article>
+							</a>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
@@ -126,6 +129,8 @@ img{
 					}
 					lastnum = data.lastnum;
 					for (const item of data.list){
+						const new_a=document.createElement('a');
+						new_a.setAttribute('href',"detail.do?num="+item.num);
 						const new_article=document.createElement('article');
 						new_article.setAttribute('class','productsArticle');
 						const new_img=document.createElement('img');
@@ -137,7 +142,8 @@ img{
 						new_price.innerText=item.priceWon;
 						new_price.setAttribute('class','priceWon');
 						new_article.append(new_img,new_title,new_price);
-						$('#productsDiv').append(new_article);
+						new_a.append(new_article);
+						$('#productsDiv').append(new_a);
 					}
 				})
 			})

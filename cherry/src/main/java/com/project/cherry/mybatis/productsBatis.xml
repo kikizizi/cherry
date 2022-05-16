@@ -5,15 +5,17 @@
 		<choose>
 			<when test="category !='전체' and search!=null">
 				where (title like '%'||#{search}||'%'
-				or explanation like '%'||#{search}||'%')
-				and category=#{category} and #{num}>num 
+				or explanation
+				like '%'||#{search}||'%')
+				and category=#{category} and #{num}>num
 			</when>
 			<when test="search!=null">
 				where (title like '%'||#{search}||'%'
-				or explanation like '%'||#{search}||'%') and #{num}>=num 
+				or explanation
+				like '%'||#{search}||'%') and #{num}>=num
 			</when>
 			<when test="category!='전체'">
-				where category=#{category} and #{num}>num 
+				where category=#{category} and #{num}>num
 			</when>
 			<otherwise>
 				where #{num}>num
@@ -29,27 +31,39 @@
 		values(product_seq.nextval,#{title},#{priceWon},#{id},0,
 		0,0,#{category},#{imgPaths},#{explanation},sysdate)
 	</insert>
-	
+
 	<select id="productList"
 		parameterType="com.project.cherry.products.productsDto"
 		resultType="com.project.cherry.products.productsDto">
 		SELECT *
-		FROM 	
-			(SELECT result1.*, ROWNUM as rnum
-			FROM
-				(SELECT * 
-				FROM products
-				<include refid="searchCondition"/>
-				ORDER BY num DESC) result1)
+		FROM
+		(SELECT result1.*, ROWNUM as rnum
+		FROM
+		(SELECT *
+		FROM products
+		<include refid="searchCondition" />
+		ORDER BY num DESC) result1)
 		WHERE issaled=0 and rnum between 1 and 6
 	</select>
-	
-	<select id="minNum" resultType="int" parameterType="com.project.cherry.products.productsDto">
+
+	<select id="minNum" resultType="int"
+		parameterType="com.project.cherry.products.productsDto">
 		select min(num)
-		from 
-			(select num,issaled 
-			from products 
-			<include refid="searchCondition"/>)
+		from
+		(select num,issaled
+		from products
+		<include refid="searchCondition" />
+		)
 		where issaled=0
 	</select>
+
+	<select id="getDetail"
+		resultType="com.project.cherry.products.productsDto"
+		parameterType="int">
+		select * from products where num=#{num}
+	</select>
+	
+	<update id="addViewCount" parameterType="int">
+		update products set viewCount=viewCount+1 where num=#{num}
+	</update>
 </mapper>

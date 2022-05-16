@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.project.cherry.products.productsDto;
 import com.project.cherry.products.productsService;
@@ -40,7 +42,7 @@ public class productsController {
 	}
 	@RequestMapping("/sell.do")
 	public String sell() {
-		return "goods/uploadform";
+		return "products/uploadform";
 	}
 	@RequestMapping("/goodsupload.do")
 	public String goodsupload(productsDto dto,HttpServletRequest req,HttpSession session) {
@@ -61,5 +63,10 @@ public class productsController {
 		String category=req.getParameter("category");
 		String search=req.getParameter("search");
 		return Service.getProductList(category, num, search);
+	}
+	@RequestMapping("/detail.do")
+	public String detail(HttpServletRequest req) {
+		Service.getDetail(req);
+		return "products/productDetail";
 	}
 }
