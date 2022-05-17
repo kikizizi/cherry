@@ -279,10 +279,6 @@
 	border: 0 !important;
 }
 
-#navDiv {
-	z-index: 1;
-}
-
 #imgs {
 	margin: 25px 100px 0px 100px;
 	width: 600px;
@@ -301,25 +297,38 @@
 #m2 {
 	border: none;
 }
-#detail{
+
+#detail {
 	margin: 25px 100px 0px 100px;
 	width: 600px;
 }
-small{
-	color:#868e96;
+
+small {
+	color: #868e96;
 }
-#title{
-	margin-bottom:0px;
-	font-size:20px;
-	font-weight:600;
+
+#title {
+	margin-bottom: 0px;
+	font-size: 20px;
+	font-weight: 600;
 }
-#priceWon{
-	margin-top:3px;
+
+#priceWon {
+	margin-top: 3px;
 	font-weight: bold;
-	font-size:18px;
+	font-size: 18px;
 }
-#explanation{
-	font-size:16px;
+
+#explanation {
+	font-size: 16px;
+}
+
+#heart {
+	
+}
+
+#chat {
+	margin: 0 0 2px 10px;
 }
 </style>
 </head>
@@ -362,19 +371,75 @@ small{
 				</div>
 			</div>
 			<div id="detail">
-				<hr />
+				<c:choose>
+					<c:when test="${dto.isWish == 1 }">
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+							fill="red" id="heart" class="hf" viewBox="0 0 16 16">
+  <path fill-rule="evenodd"
+								d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /></svg>
+					</c:when>
+					<c:otherwise>
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+							fill="red" id="heart" class="he" viewBox="0 0 16 16">
+  <path
+								d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+</svg>
+					</c:otherwise>
+				</c:choose>
+
+				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+					fill="currentColor" id="chat" viewBox="0 0 16 16">
+  <path
+						d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z" />
+</svg>
+				<hr style="margin-top: 0px" />
 				<p id="title">${dto.title }</p>
-				<small>${dto.category } | ${dto.regdate }</small>
+				<small>${dto.category } | ${dto.regdate } </small>
 				<p id="priceWon">${dto.priceWon }</p>
 				<p id="explanation">${dto.explanation }</p>
-				<small>조회 ${dto.viewCount } | 관심 ${dto.wishCount}</small>
+				<small>조회 ${dto.viewCount } | 관심 ${dto.wishCount }</small>
 				<hr />
 			</div>
 		</div>
 	</div>
 	<jsp:include page="/include/footer.jsp"></jsp:include>
 	<script>
-		
+		$("#heart").click(function(){
+			const id = '${sessionScope.id}';
+			if (id == ""){
+				return
+			} else if (id=="${dto.id}"){
+				return
+			}
+			let c_name=$("#heart").attr("class");
+			if (c_name == "he"){
+				$("#heart").html('<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>');
+				$('#heart').attr('class','hf');
+				$.ajax({
+					url:'conWish.do',
+					data:{
+						"id":id,
+						"num":${dto.num },
+						"aord":true
+					},
+					method:'GET',
+					dataType:'json'
+				})
+			} else{
+				$("#heart").html('<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />');
+				$('#heart').attr('class','he');
+				$.ajax({
+					url:'conWish.do',
+					data:{
+						"id":id,
+						"num":${dto.num},
+						"aord":false
+					},
+					method:'GET',
+					dataType:'json'
+				})
+			}
+		})
 	</script>
 </body>
 </html>

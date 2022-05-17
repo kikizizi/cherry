@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -154,7 +155,7 @@ public class productsServiceImpl implements productsService {
 		return map;
 	}
 	@Override
-	public void getDetail(HttpServletRequest req) {
+	public void getDetail(HttpServletRequest req,HttpSession session) {
 		int num=Integer.parseInt(req.getParameter("num"));
 		productsDto dto=dao.getDetail(num);
 		String jsonImgPaths=dto.getImgPaths();
@@ -162,7 +163,27 @@ public class productsServiceImpl implements productsService {
 		dto.setImgPathList(imgPathList);
 		String regdate=dto.getRegdate();
 		dto.setRegdate(changeRegdate(regdate));
+		String id =(String) session.getAttribute("id");
+		if (id==null) {
+			dto.setIsWish(0);
+		} else {
+			dto.setIsWish(dao.isWish(dto));
+		}
 		req.setAttribute("dto",dto);
+	}
+	@Override
+	public void conWish(HttpServletRequest req) {
+		String id = req.getParameter("id");
+		int num = Integer.parseInt(req.getParameter("num"));
+		productsDto dto= new productsDto();
+		dto.setNum(num);
+		dto.setId(id);
+		String aord = req.getParameter("aord");
+		if (aord.equals("true")) {
+			dao.addWish(dto);
+		} else {
+			dao.delWish(dto);
+		}
 	}
 	
 }

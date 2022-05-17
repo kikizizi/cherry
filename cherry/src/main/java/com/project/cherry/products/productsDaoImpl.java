@@ -36,6 +36,25 @@ public class productsDaoImpl implements productsDao{
 		productsDto dto=session.selectOne("products.getDetail",num);
 		return dto;
 	}
+
+	@Override
+	public void addWish(productsDto dto) {
+		dto.setWishCount(1);
+		session.update("products.updateProductForWish",dto);
+		session.insert("products.addWish",dto);
+	}
+
+	@Override
+	public void delWish(productsDto dto) {
+		dto.setWishCount(-1);
+		session.update("products.updateProductForWish",dto);
+		session.delete("products.delWish",dto);		
+	}
+
+	@Override
+	public int isWish(productsDto dto) {
+		return session.selectOne("products.isWish",dto);
+	}
 	
 	
 }

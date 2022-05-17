@@ -43,7 +43,7 @@
 		FROM products
 		<include refid="searchCondition" />
 		ORDER BY num DESC) result1)
-		WHERE issaled=0 and rnum between 1 and 6
+		WHERE issaled=0 and rnum between 1 and 9
 	</select>
 
 	<select id="minNum" resultType="int"
@@ -66,4 +66,20 @@
 	<update id="addViewCount" parameterType="int">
 		update products set viewCount=viewCount+1 where num=#{num}
 	</update>
+	
+	<update id="updateProductForWish" parameterType="com.project.cherry.products.productsDto">
+		update products set wishCount=wishCount+#{wishCount} where num=#{num}
+	</update>
+	
+	<insert id="addWish" parameterType="com.project.cherry.products.productsDto">
+		insert into wishlist values(#{num},#{id},sysdate)
+	</insert>
+	
+	<delete id="delWish" parameterType="com.project.cherry.products.productsDto">
+		delete from wishlist where num=#{num} and id=#{id}
+	</delete>
+	
+	<select id="isWish" parameterType="com.project.cherry.products.productsDto" resultType="int">
+		select count(*) from wishList where num=#{num} and id=#{id}
+	</select>
 </mapper>

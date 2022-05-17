@@ -65,8 +65,13 @@ public class productsController {
 		return Service.getProductList(category, num, search);
 	}
 	@RequestMapping("/detail.do")
-	public String detail(HttpServletRequest req) {
-		Service.getDetail(req);
+	public String detail(HttpServletRequest req,HttpSession session) {
+		Service.getDetail(req,session);
 		return "products/productDetail";
+	}
+	
+	@RequestMapping(value="/conWish.do",method=RequestMethod.GET)
+	public void conWish(HttpServletRequest req) {
+		Service.conWish(req);
 	}
 }
