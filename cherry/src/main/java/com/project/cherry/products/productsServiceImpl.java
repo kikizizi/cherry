@@ -157,18 +157,24 @@ public class productsServiceImpl implements productsService {
 	@Override
 	public void getDetail(HttpServletRequest req,HttpSession session) {
 		int num=Integer.parseInt(req.getParameter("num"));
-		productsDto dto=dao.getDetail(num);
+		String id =(String) session.getAttribute("id");
+		int isWish;
+		productsDto dto=new productsDto();
+		if (id==null) {
+			isWish=0;
+		} else {
+			dto.setId(id);
+			dto.setNum(num);
+			isWish=dao.isWish(dto);
+		}
+		dto=dao.getDetail(num);
+		dto.setIsWish(isWish);
 		String jsonImgPaths=dto.getImgPaths();
 		List<String> imgPathList = new Gson().fromJson(jsonImgPaths, List.class);
 		dto.setImgPathList(imgPathList);
 		String regdate=dto.getRegdate();
 		dto.setRegdate(changeRegdate(regdate));
-		String id =(String) session.getAttribute("id");
-		if (id==null) {
-			dto.setIsWish(0);
-		} else {
-			dto.setIsWish(dao.isWish(dto));
-		}
+		
 		req.setAttribute("dto",dto);
 	}
 	@Override

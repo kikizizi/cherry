@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,7 +87,15 @@ p {
 		<div id="brand">
 			<a href="home.do"> <b>CHERRY</b><br /> <b>Market</b></a>
 		</div>
-		<form action="home.do" method="post" id="mainform">
+		<c:choose>
+			<c:when test="${param.url eq null }">
+				<form action="home.do" method="post" id="mainform">
+			</c:when>
+			<c:otherwise>
+				<form action="${param.url }" method="post" id="mainform">
+			</c:otherwise>
+		</c:choose>
+		
 			<div>
 				<input type="text" id="id" name="id" placeholder="아이디" />
 			</div>

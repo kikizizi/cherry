@@ -15,7 +15,7 @@
 				<c:otherwise>
 					<a href="">${sessionScope.id}</a>
 					&emsp;
-					<a href="">logout</a>
+					<a href="logout.do">logout</a>
 				</c:otherwise>
 			</c:choose>
 		</div>

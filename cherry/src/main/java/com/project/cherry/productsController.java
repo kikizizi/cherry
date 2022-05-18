@@ -41,11 +41,12 @@ public class productsController {
 		return "home";
 	}
 	@RequestMapping("/sell.do")
-	public String sell() {
-		return "products/uploadform";
+	public ModelAndView authsell(ModelAndView mView,HttpServletRequest req) {
+		mView.setViewName("products/uploadform");
+		return mView;
 	}
 	@RequestMapping("/goodsupload.do")
-	public String goodsupload(productsDto dto,HttpServletRequest req,HttpSession session) {
+	public String authgoodsupload(productsDto dto,HttpServletRequest req,HttpSession session) {
 		String id=(String) session.getAttribute("id");
 		dto.setId(id);
 		Service.addProduct(dto, req);
