@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chat">
+	<insert id="uploadChatLog"
+		parameterType="com.project.cherry.chat.chatLogDto">
+		insert into chatLog
+		(roomId,talker,text,regdate)
+		values(#{roomId},#{talker},#{text},to_number(to_char(systimestamp,'yymmddhh24missff3')))
+	</insert>
+
+	<select id="checkRoomId" parameterType="String" resultType="int">
+		select count(*) from chatRoom
+		where roomId=#{roomId}
+	</select>
+
+	<insert id="createRoom"
+		parameterType="com.project.cherry.chat.chatLogDto">
+		insert into chatRoom
+		(roomId,talker,text,regdate,isRead,listener)
+		values(#{roomId},#{talker},#{text},#{regdate},1,#{listener})
+	</insert>
+
+	<update id="updateRoom"
+		parameterType="com.project.cherry.chat.chatLogDto">
+		update chatRoom
+		set talker=#{talker},text=#{text},regdate=#{regdate},isRead=isRead+1,listener=#{listener} 
+		where roomId=#{roomId}
+	</update>
+
+	<select id="getRoomList" parameterType="String"
+		resultType="com.project.cherry.chat.chatListDto">
+		select * from chatRoom
+		where roomId like '%_'||#{id} or roomId like #{id}||'_%'
+		order by regdate desc
+	</select>
+
+	<select id="getChatLog" parameterType="String"
+		resultType="com.project.cherry.chat.chatLogDto">
+		select talker,text,regdate from chatLog
+		where roomId=#{roomId} order by regdate asc
+	</select>
+
+	<update id="resetIsRead" parameterType="String">
+		update chatRoom 
+		set isRead=0 where roomId=#{roomId}
+	</update>
+</mapper>

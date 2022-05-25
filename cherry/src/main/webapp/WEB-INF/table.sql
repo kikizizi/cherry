@@ -23,3 +23,7 @@ create table products(
 );
 
 create sequence product_seq;
+
+create table chatLog (roomId varchar2(200),talker varchar2(100),text varchar2(2000),regdate number)
+
+create table chatRoom (roomId varchar2(200),talker varchar2(100),text varchar2(100),regdate number,isRead number,listener varchar2(100))

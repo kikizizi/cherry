@@ -5,11 +5,13 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd 		
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.0.xsd ">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	<!-- 
@@ -111,4 +113,35 @@
 	<!-- 어노테이션 기반으로 aop 적용할수 있도록 설정 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	
+	<!-- websocket 
+	<beans:bean id="websocket" class="com.project.cherry.websocketHandler"/>
+	
+	<websocket:handlers>
+		<websocket:mapping handler="websocket" path="/socket"/>
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+		
+	</websocket:handlers>
+	
+	== 위 xml과 같은 코드의 java 코드
+	
+@Configuration
+@EnableWebSocketMessageBroker
+public class webSocket implements WebSocketMessageBrokerConfigurer{
+
+	@Override
+	public void configureMessageBroker(MessageBrokerRegistry registry) {
+		registry.enableSimpleBroker("/topic","/quere");
+		registry.setApplicationDestinationPrefixes("/chat");
+		
+	}
+
+	@Override
+	public void registerStompEndpoints(StompEndpointRegistry registry) {
+		registry.addEndpoint("/websocket").withSockJS();
+		
+	}
+	-->
+		
 </beans:beans>

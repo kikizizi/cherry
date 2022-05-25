@@ -6,5 +6,6 @@
 	<mappers>
 		<mapper resource="com/project/cherry/mybatis/userBatis.xml"/>
 		<mapper resource="com/project/cherry/mybatis/productsBatis.xml"/>
+		<mapper resource="com/project/cherry/mybatis/chatBatis.xml"/>
 	</mappers>
 </configuration>

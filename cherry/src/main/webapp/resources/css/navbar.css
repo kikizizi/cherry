@@ -157,15 +157,21 @@
 	margin: auto;
 }
 
-#iconDiv {
-	margin-top: 10px;
-	text-align: right;
-	width: 100%;
+#iconDivs {
+	display:flex;
+	margin-top:4px;
+	float:right;
 }
-
-#iconDiv>div>a {
+.iconDiv{
+	margin:0;
+	margin-left:10px;
+	text-align:center;
+}
+.iconDiv>a{
+	line-height:0px;
+	font-size:11px;
 	color: #ff4973;
-	margin-left: 20px
+	font-weight:bold;
 }
 loginbar p{
 	color: white;

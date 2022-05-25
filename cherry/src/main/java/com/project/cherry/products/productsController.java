@@ -1,4 +1,4 @@
-package com.project.cherry;
+package com.project.cherry.products;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,15 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.project.cherry.products.productsDto;
-import com.project.cherry.products.productsService;
-
 @Controller
 public class productsController {
 	@Autowired
 	private productsService Service;
 	
-	@RequestMapping("/home.do")
+	@RequestMapping(value={"/","/home.do"})
 	public String home(HttpServletRequest req) {
 		int num;
 		if (req.getParameter("num")==null) {
@@ -46,7 +43,7 @@ public class productsController {
 		return mView;
 	}
 	@RequestMapping("/goodsupload.do")
-	public String authgoodsupload(productsDto dto,HttpServletRequest req,HttpSession session) {
+	public String goodsupload(productsDto dto,HttpServletRequest req,HttpSession session) {
 		String id=(String) session.getAttribute("id");
 		dto.setId(id);
 		Service.addProduct(dto, req);
