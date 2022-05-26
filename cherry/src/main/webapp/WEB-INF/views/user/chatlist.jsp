@@ -173,7 +173,7 @@
 										</c:otherwise>
 									</c:choose>
 								</div>
-								<div class="list_isRead "id="${tmp.roomId }_IsRead">
+								<div class="list_isRead "id="${tmp.roomId }_isRead">
 									<c:if test="${tmp.talker ne sessionScope.id && tmp.isRead!=0}">
 									${tmp.isRead }
 									</c:if>
@@ -247,6 +247,7 @@
 			client.subscribe('/topic/getNotice/${sessionScope.id}',
 					function(e) {
 						let data = JSON.parse(e.body)
+						//채팅방에 들어와 있을때 채팅로그 출력
 						if (data.roomId == roomId) {
 							if (data.talker == '${sessionScope.id }') {
 								let new_li = '<li class="right">';
@@ -265,11 +266,41 @@
 							}
 							$('#textBox').scrollTop($('#textBox')[0].scrollHeight);
 						}
-						if (data.text>10){
+						// 채팅방이 새로 만들어진경우 새로운 리스트 생성
+						if($("#"+data.roomId+"_text").text()==""){
+							new_div='<div class="chatclick" id="'+data.roomId+'">';
+							new_div+='<div style="width:275px">';
+							if(data.listener=="${sessionScope.id}"){
+								new_div+='<div class="list_id" id="'+data.roomId+'_listener">'+data.talker+'님</div>';
+							}else{
+								new_div+='<div class="list_id" id="'+data.roomId+'_listener">'+data.talker+'님</div>';
+							}
+							new_div+='<div class="list_text" id="'+data.roomId+'_text"></div>';
+							new_div+='</div>';
+							new_div+='<div class="list_isRead" id="'+data.roomId+'_IsRead">';
+							new_div+='</div>';
+							new_div+='<div id="'+data.roomId+'_talker" style="display: none">'+data.talker+'</div>';
+							new_div+='</div>';
+							$('#chatlist').prepend(new_div);
+						}
+						// 채팅방 미리보기, 안읽은 카운트 갱신
+						if (data.text.length>10){
 							$("#"+data.roomId+"_text").text(data.text.substr(0,9)+"...");
 						}else{
 							$("#"+data.roomId+"_text").text(data.text);
 						}
+						if (data.talker != '${sessionScope.id }' && listener!=data.talker){
+							if ($("#"+data.roomId+"_isRead").text()==""){
+								$("#"+data.roomId+"_isRead").text(0);
+							}
+							var count=$("#"+data.roomId+"_isRead").text();
+							$("#"+data.roomId+"_isRead").text(Number(count)+1);
+						}
+						//최근에 메시지 받은 방 상위 노출
+						let save=$("#"+data.roomId).html();
+						save='<div class="chatclick" id="'+data.roomId+'">'+save+'</div>';
+						$("#"+data.roomId).remove();
+						$('#chatlist').prepend(save);
 					})
 		})
 		$("#text").keyup(function(e) {
@@ -293,7 +324,7 @@
 					method:'POST',
 					dataType:"json"
 				}).done(function(){
-					$("#"+roomId+"_IsRead").text("");
+					$("#"+roomId+"_isRead").text("");
 				})
 			}
 			id_list = roomId.split('_');

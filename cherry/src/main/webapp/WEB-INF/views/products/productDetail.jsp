@@ -398,7 +398,7 @@ small {
 				</form>
 				<hr style="margin-top: 0px" />
 				<p id="title">${dto.title }</p>
-				<small>${dto.category } | ${dto.regdate } </small>
+				<small>${dto.category } | ${dto.regdate } | ${dto.id }님</small>
 				<p id="priceWon">${dto.priceWon }</p>
 				<p id="explanation">${dto.explanation }</p>
 				<small>조회 ${dto.viewCount } | 관심 ${dto.wishCount }</small>

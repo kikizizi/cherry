@@ -40,7 +40,6 @@ public class chatController {
 	@SendToUser("/topic/getNotice")
 	public void conNotice(@RequestParam chatLogDto dto) {
 		service.uploadChatLog(dto);
-		System.out.println("/topic/getNotice/"+dto.getListener());
 		temp.convertAndSend("/topic/getNotice/"+dto.getListener(),dto);
 		temp.convertAndSend("/topic/getNotice/"+dto.getTalker(),dto);
 	}
