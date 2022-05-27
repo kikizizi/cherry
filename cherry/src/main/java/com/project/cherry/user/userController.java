@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class userController {
@@ -43,5 +44,11 @@ public class userController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("id");
 		return "redirect:home.do";
+	}
+	
+	@RequestMapping("/mypage")
+	public ModelAndView authmypage(ModelAndView mView) {
+		mView.setViewName("user/mypage");
+		return mView;
 	}
 }

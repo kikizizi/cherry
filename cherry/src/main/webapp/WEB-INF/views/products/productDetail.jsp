@@ -35,6 +35,11 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/main.css" />
 <script src="${pageContext.request.contextPath }/resources/js/navbar.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<!-- 공통끝 -->
 <style>
 .carousel {
 	position: relative;

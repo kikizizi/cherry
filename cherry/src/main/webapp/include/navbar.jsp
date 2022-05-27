@@ -99,7 +99,7 @@
 								<p style="margin: -2px 0 0 0;">Sell</p></a>
 						</div>
 						<div class="iconDiv">
-							<a href=""> <svg xmlns="http://www.w3.org/2000/svg"
+							<a href="mypage"> <svg xmlns="http://www.w3.org/2000/svg"
 									width="30" height="30" fill="#ff4973" class="bi bi-person-fill"
 									viewBox="0 0 16 16">
 		  <path

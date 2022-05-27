@@ -46,7 +46,6 @@ public class chatServiceImpl implements chatService{
 	@Override
 	public void getNoRead(HttpSession session, HttpServletRequest req) {
 		String id = (String) session.getAttribute("id");
-		System.out.println(id);
 		if (id != null) {
 			List<chatListDto> list= dao.getRoomList(id);
 			int sum=0;

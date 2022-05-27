@@ -319,6 +319,14 @@
 								new_li += '</li>';
 								$('#textul').append(new_li);
 							}
+							$.ajax({
+								url:"resetIsRead",
+								data:{"roomId":roomId},
+								method:'POST',
+								dataType:"json"
+							}).done(function(){
+								$("#"+roomId+"_isRead").text("");
+							})
 							$('#textBox').scrollTop($('#textBox')[0].scrollHeight);
 						}
 						// 채팅방이 새로 만들어진경우 새로운 리스트 생성
