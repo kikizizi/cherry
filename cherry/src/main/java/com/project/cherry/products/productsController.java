@@ -16,13 +16,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.cherry.chat.chatService;
+
 @Controller
 public class productsController {
 	@Autowired
 	private productsService Service;
 	
+	@Autowired
+	private chatService Service2;
+	
 	@RequestMapping(value={"/","/home.do"})
-	public String home(HttpServletRequest req) {
+	public String home(HttpServletRequest req,HttpSession session) {
 		int num;
 		if (req.getParameter("num")==null) {
 			num=2147483647;
@@ -35,10 +40,12 @@ public class productsController {
 		req.setAttribute("list",(List<productsDto>) map.get("list"));
 		req.setAttribute("isEnd", (boolean) map.get("isEnd"));
 		req.setAttribute("lastnum", (int) map.get("lastnum"));
+		Service2.getNoRead(session, req);
 		return "home";
 	}
 	@RequestMapping("/sell.do")
-	public ModelAndView authsell(ModelAndView mView,HttpServletRequest req) {
+	public ModelAndView authsell(ModelAndView mView,HttpServletRequest req,HttpSession session) {
+		Service2.getNoRead(session, req);
 		mView.setViewName("products/uploadform");
 		return mView;
 	}
@@ -64,6 +71,7 @@ public class productsController {
 	}
 	@RequestMapping("/detail.do")
 	public String detail(HttpServletRequest req,HttpSession session) {
+		Service2.getNoRead(session, req);
 		Service.getDetail(req,session);
 		return "products/productDetail";
 	}

@@ -30,8 +30,10 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/main.css" />
 <script src="${pageContext.request.contextPath }/resources/js/navbar.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <!-- 공통끝 -->
 <style>
 #moreDiv {
@@ -82,9 +84,10 @@ img {
 	font-size: 16px;
 }
 
-#wishCount {
+.wishCount {
 	color: black;
 	font-size: 14px;
+	float: right;
 }
 </style>
 </head>
@@ -114,7 +117,7 @@ img {
 									<p class="priceWon">${dto.priceWon }
 										<c:if test="${dto.wishCount != 0 }">
 											&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-											<small id="wishCount"><svg
+											<small class="wishCount"><svg
 													xmlns="http://www.w3.org/2000/svg" width="12" height="12"
 													fill="red" class="bi bi-heart" viewBox="0 0 16 14">
   <path
@@ -150,9 +153,6 @@ img {
 					method : 'GET',
 					dataType : 'json'
 				}).done(function(data) {
-					console.log(data.lastnum);
-					console.log(data.list);
-					console.log(data.isEnd);
 					if (data.isEnd) {
 						$('#moreDiv').attr("style", "display:none;");
 					}
@@ -178,16 +178,19 @@ img {
 			})
 		})
 	</script>
-	<!-- 
 	<script>
+	//navbar chat 안읽음 표시
 		var sock = new SockJS("/cherry/websocket");
 		var client = Stomp.over(sock);
 		client.connect({},function(){
 			client.subscribe('/topic/getNotice/${sessionScope.id}',function(e){
-				
+				if ($("#chatCount").text()==""){
+					$("#chatCount").text(0);
+				}
+				let count=$("#chatCount").text();
+				$("#chatCount").text(Number(count)+1);
 			})
-		})		
+		})
 	</script>
- -->
 </body>
 </html>

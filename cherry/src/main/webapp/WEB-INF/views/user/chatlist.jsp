@@ -141,6 +141,10 @@
 	padding: 25px 0 0 0px;
   color: red;
 }
+#chatlist{
+	height:765px;
+	overflow-y: auto;
+}
 </style>
 </head>
 <body>
@@ -188,7 +192,7 @@
 					<div class="title">
 						<p id="listener">
 							<c:if test="${param.listener ne null }">
-								${param.listener }
+								${param.listener } 님
 							</c:if>
 						</p>
 					</div>
@@ -243,6 +247,57 @@
 		$('#textBox').scrollTop($('#textBox')[0].scrollHeight);
 		var Sock = new SockJS("/cherry/websocket");
 		var client = Stomp.over(Sock);
+		function clickEventReset(){
+			$(".chatclick").click(function(){
+				roomId=$(this).attr("id");
+				let talker = $("#"+roomId+"_talker").text();
+				if (talker!='${sessionScope.id}'){
+					$.ajax({
+						url:"resetIsRead",
+						data:{"roomId":roomId},
+						method:'POST',
+						dataType:"json"
+					}).done(function(){
+						$("#"+roomId+"_isRead").text("");
+					})
+				}
+				id_list = roomId.split('_');
+				for (const temp of id_list){
+					if (temp!="${sessionScope.id}"){
+						listener=temp;
+						$("#listener").text(listener+" 님");	
+					}
+				}
+				
+				$('#textul').empty();
+				$.ajax({
+					url:"getchatLog",
+					data:{"roomId":roomId},
+					method:'POST',
+					dataType:"json"			
+				}).done(function(data){
+					
+					for (const temp of data){
+						if (temp.talker == '${sessionScope.id }') {
+							let new_li = '<li class="right">';
+							new_li += '<div class="message">';
+							new_li += '<span>' + temp.text + '</span>';
+							new_li += '</div>';
+							new_li += '</li>';
+							$('#textul').append(new_li);
+						} else {
+							let new_li = '<li class="left">';
+							new_li += '<div class="message">';
+							new_li += '<span>' + temp.text + '</span>';
+							new_li += '</div>';
+							new_li += '</li>';
+							$('#textul').append(new_li);
+						}
+						$('#textBox').scrollTop($('#textBox')[0].scrollHeight);
+					}
+				})
+			})
+		}
 		client.connect({}, function() {
 			client.subscribe('/topic/getNotice/${sessionScope.id}',
 					function(e) {
@@ -301,6 +356,7 @@
 						save='<div class="chatclick" id="'+data.roomId+'">'+save+'</div>';
 						$("#"+data.roomId).remove();
 						$('#chatlist').prepend(save);
+						clickEventReset();
 					})
 		})
 		$("#text").keyup(function(e) {
@@ -314,55 +370,9 @@
 				$("#text").val("");
 			}
 		})
-		$(".chatclick").click(function(){
-			roomId=$(this).attr("id");
-			let talker = $("#"+roomId+"_talker").text();
-			if (talker!='${sessionScope.id}'){
-				$.ajax({
-					url:"resetIsRead",
-					data:{"roomId":roomId},
-					method:'POST',
-					dataType:"json"
-				}).done(function(){
-					$("#"+roomId+"_isRead").text("");
-				})
-			}
-			id_list = roomId.split('_');
-			for (const temp of id_list){
-				if (temp!="${sessionScope.id}"){
-					listener=temp;
-					$("#listener").text(listener);	
-				}
-			}
-			
-			$('#textul').empty();
-			$.ajax({
-				url:"getchatLog",
-				data:{"roomId":roomId},
-				method:'POST',
-				dataType:"json"			
-			}).done(function(data){
-				
-				for (const temp of data){
-					if (temp.talker == '${sessionScope.id }') {
-						let new_li = '<li class="right">';
-						new_li += '<div class="message">';
-						new_li += '<span>' + temp.text + '</span>';
-						new_li += '</div>';
-						new_li += '</li>';
-						$('#textul').append(new_li);
-					} else {
-						let new_li = '<li class="left">';
-						new_li += '<div class="message">';
-						new_li += '<span>' + temp.text + '</span>';
-						new_li += '</div>';
-						new_li += '</li>';
-						$('#textul').append(new_li);
-					}
-					$('#textBox').scrollTop($('#textBox')[0].scrollHeight);
-				}
-			})
-		})
+		clickEventReset();
+		
+		
 		
 	</script>
 </body>

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -26,14 +27,14 @@ public class chatController {
 	private chatService service;
 	
 	@RequestMapping("/chatlist")
-	public String authchatlist(HttpServletRequest req,HttpSession session) {
-		service.getRoomList(session, req);
+	public ModelAndView authchatlist(ModelAndView mView,HttpServletRequest req,HttpSession session) {
+		service.getRoomList(session, mView);
 		if (req.getParameter("listener")!=null) {
-			System.out.println("listener: "+req.getParameter("listener"));
 			List<chatLogDto> list = service.getChatLog(req.getParameter("roomId"));
-			req.setAttribute("chatlist", list);
+			mView.addObject("chatlist", list);
 		}
-		return "user/chatlist";
+		mView.setViewName("user/chatlist");
+		return mView;
 	}
 	
 	@MessageMapping("/notice")
@@ -42,6 +43,7 @@ public class chatController {
 		service.uploadChatLog(dto);
 		temp.convertAndSend("/topic/getNotice/"+dto.getListener(),dto);
 		temp.convertAndSend("/topic/getNotice/"+dto.getTalker(),dto);
+		
 	}
 	
 	@RequestMapping("/getchatLog")
