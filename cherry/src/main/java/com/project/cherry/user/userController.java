@@ -1,5 +1,7 @@
 package com.project.cherry.user;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,10 +14,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.cherry.chat.chatService;
+import com.project.cherry.products.productsDto;
+import com.project.cherry.products.productsService;
+
 @Controller
 public class userController {
 	@Autowired
 	private userService Service;
+	
+	@Autowired
+	private productsService Service2;
+	
+	@Autowired
+	private chatService Service3;
 	
 	@RequestMapping("/signupform.do")
 	public String singupform() {
@@ -27,6 +39,7 @@ public class userController {
 		req.setAttribute("fromSignup", 1);
 		return "redirect:loginform.do";
 	}
+	
 	@RequestMapping("/loginform.do")
 	public String loginform() {
 		return "user/loginform";
@@ -47,7 +60,17 @@ public class userController {
 	}
 	
 	@RequestMapping("/mypage")
-	public ModelAndView authmypage(ModelAndView mView) {
+	public ModelAndView authmypage(ModelAndView mView,HttpServletRequest req,HttpSession session) {
+		Service3.getNoRead(session, req);
+		productsDto dto = new productsDto();
+		dto.setId((String)session.getAttribute("id"));
+		dto.setNum(2147483647);
+		HashMap<String,Object> myPro = Service2.getMyProduct(dto);
+		System.out.println("con- my p on");
+		HashMap<String,Object> myWish=Service2.getMyWish(dto);
+		System.out.println("con- my w on");
+		mView.addObject("myPro", myPro);
+		mView.addObject("myWish",myWish);		
 		mView.setViewName("user/mypage");
 		return mView;
 	}

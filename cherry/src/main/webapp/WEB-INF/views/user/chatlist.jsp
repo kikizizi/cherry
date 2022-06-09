@@ -126,7 +126,7 @@
 .chatclick {
 	height: 70px;
 	border-bottom: solid 0.5px #80808026;
-	display:flex;
+	display: flex;
 }
 
 .list_text {
@@ -137,12 +137,14 @@
 .list_id {
 	padding: 15px 0px 0px 10px;
 }
-.list_isRead{
+
+.list_isRead {
 	padding: 25px 0 0 0px;
-  color: red;
+	color: red;
 }
-#chatlist{
-	height:765px;
+
+#chatlist {
+	height: 765px;
 	overflow-y: auto;
 }
 </style>
@@ -159,7 +161,7 @@
 					<div id="chatlist">
 						<c:forEach var="tmp" items="${roomList }">
 							<div class="chatclick" id="${tmp.roomId }">
-								<div style="width:275px">
+								<div style="width: 275px">
 									<c:choose>
 										<c:when test='${tmp.talker eq sessionScope.id }'>
 											<div class="list_id" id="${tmp.roomId }_listener">${tmp. listener}님</div>
@@ -177,7 +179,7 @@
 										</c:otherwise>
 									</c:choose>
 								</div>
-								<div class="list_isRead "id="${tmp.roomId }_isRead">
+								<div class="list_isRead " id="${tmp.roomId }_isRead">
 									<c:if test="${tmp.talker ne sessionScope.id && tmp.isRead!=0}">
 									${tmp.isRead }
 									</c:if>
@@ -233,7 +235,10 @@
 							</c:choose>
 						</ul>
 					</div>
-					<div id="inputBox">
+					<div id="inputBox"
+					<c:if test='${param.listener eq null}'>
+						style="display:none;"
+					</c:if>>
 						<textarea id="text" maxlength="128" placeholder="insert message.."></textarea>
 					</div>
 				</div>
@@ -249,6 +254,7 @@
 		var client = Stomp.over(Sock);
 		function clickEventReset(){
 			$(".chatclick").click(function(){
+				$("#inputBox").removeAttr("style");
 				roomId=$(this).attr("id");
 				let talker = $("#"+roomId+"_talker").text();
 				if (talker!='${sessionScope.id}'){
@@ -318,15 +324,16 @@
 								new_li += '</div>';
 								new_li += '</li>';
 								$('#textul').append(new_li);
+								$.ajax({
+									url:"resetIsRead",
+									data:{"roomId":roomId},
+									method:'POST',
+									dataType:"json"
+								}).done(function(){
+									$("#"+roomId+"_isRead").text("");
+								})
 							}
-							$.ajax({
-								url:"resetIsRead",
-								data:{"roomId":roomId},
-								method:'POST',
-								dataType:"json"
-							}).done(function(){
-								$("#"+roomId+"_isRead").text("");
-							})
+							
 							$('#textBox').scrollTop($('#textBox')[0].scrollHeight);
 						}
 						// 채팅방이 새로 만들어진경우 새로운 리스트 생성
@@ -379,9 +386,6 @@
 			}
 		})
 		clickEventReset();
-		
-		
-		
 	</script>
 </body>
 </html>

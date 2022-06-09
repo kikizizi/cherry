@@ -26,7 +26,7 @@
 		set talker=#{talker},text=#{text},regdate=#{regdate},isRead=isRead+1,listener=#{listener} 
 		where roomId=#{roomId}
 	</update>
-
+	
 	<select id="getRoomList" parameterType="String"
 		resultType="com.project.cherry.chat.chatListDto">
 		select * from chatRoom

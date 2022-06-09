@@ -23,7 +23,7 @@ public class chatDaoImpl implements chatDao{
 
 	@Override
 	public void createRoom(chatLogDto dto) {
-		session.insert("chat.createRoom",dto);		
+		session.insert("chat.createRoom",dto);
 	}
 
 	@Override
