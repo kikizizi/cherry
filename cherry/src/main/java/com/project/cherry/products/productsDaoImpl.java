@@ -58,9 +58,6 @@ public class productsDaoImpl implements productsDao{
 
 	@Override
 	public List<productsDto> getMyProducts(productsDto dto) {
-		System.out.println("d my p on");
-		System.out.println(dto.getNum());
-		System.out.println(dto.getId());
 		return session.selectList("products.getMyProducts",dto);
 	}
 
@@ -71,13 +68,24 @@ public class productsDaoImpl implements productsDao{
 
 	@Override
 	public int getMyProNum(productsDto dto) {
-		System.out.println("d my p min on");
-		return session.selectOne("products.myProMin",dto);
+		int result;
+		try {
+			result=session.selectOne("products.myProMin",dto);
+		}catch (Exception e) {
+			result=0;
+		}
+		return result;
 	}
 
 	@Override
 	public int getMyWishNum(productsDto dto) {
-		return session.selectOne("products.myWishMin",dto);
+		int result;
+		try {
+			result=session.selectOne("products.myWishMin",dto);
+		}catch (Exception e) {
+			result=0;
+		}
+		return result;
 	}
 	
 	

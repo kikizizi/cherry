@@ -195,7 +195,6 @@ public class productsServiceImpl implements productsService {
 	public HashMap<String, Object> getMyProduct(productsDto dto) {
 		List<productsDto> list=dao.getMyProducts(dto);
 		int lastnum=0;
-		System.out.println(dto.getNum());
 		for (productsDto dto1:list) {
 			String jsonImgPaths=dto1.getImgPaths();
 			List<String> imgPathList = new Gson().fromJson(jsonImgPaths, List.class);
