@@ -33,121 +33,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<style>
-#TotalBox {
-	height: 800px;
-	display: flex;
-}
-
-#listBox {
-	height: 800px;
-	width: 320px;
-	border-right: solid 0.5px #80808026;
-}
-
-#chatBox {
-	height: 800px;
-	width: 480px;
-}
-
-.title {
-	height: 35px;
-	border-bottom: solid 0.5px #80808026;
-}
-
-.title>p {
-	font-size: 20px;
-	padding: 5px;
-	margin-left: 15px;
-	font-weight: bold;
-}
-
-#text {
-	padding: 10px;
-	width: 100%;
-	outline: none;
-	resize: none;
-	border: none;
-	height: 100px;
-	border-radius: 10px;
-}
-
-#inputBox {
-	border-top: solid 0.5px #80808026;
-	width: 480px;
-}
-
-#textBox {
-	height: 649px;
-	overflow-y: auto;
-}
-
-#textBox ul {
-	width: 100%;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-#textBox ul li {
-	width: 100%;
-}
-
-#textBox ul li.left {
-	text-align: left;
-}
-
-#textBox ul li.right {
-	text-align: right;
-}
-
-#textBox ul li>div {
-	font-size: 15px;
-}
-
-.message {
-	display: inline-block;
-	word-break: break-all;
-	margin: 5px 10px;
-	max-width: 75%;
-	border: 1px solid #888;
-	padding: 10px;
-	border-radius: 5px;
-	background-color: #FCFCFC;
-	color: #555;
-	text-align: left;
-}
-
-#textBox ul li small {
-	font-size: 8px;
-	margin-bottom: 0px;
-}
-
-.chatclick {
-	height: 70px;
-	border-bottom: solid 0.5px #80808026;
-	display: flex;
-}
-
-.list_text {
-	color: #8e8e8e;
-	padding: 3px 0px 0 10px;
-}
-
-.list_id {
-	padding: 15px 0px 0px 10px;
-}
-
-.list_isRead {
-	padding: 25px 0 0 0px;
-	color: red;
-}
-
-#chatlist {
-	height: 765px;
-	overflow-y: auto;
-}
-</style>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/chatlist.css" />
 </head>
 <body>
 	<jsp:include page="/include/navbar.jsp"></jsp:include>
@@ -236,7 +123,7 @@
 						</ul>
 					</div>
 					<div id="inputBox"
-					<c:if test='${param.listener eq null}'>
+						<c:if test='${param.listener eq null}'>
 						style="display:none;"
 					</c:if>>
 						<textarea id="text" maxlength="128" placeholder="insert message.."></textarea>

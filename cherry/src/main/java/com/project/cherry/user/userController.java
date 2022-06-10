@@ -66,9 +66,7 @@ public class userController {
 		dto.setId((String)session.getAttribute("id"));
 		dto.setNum(2147483647);
 		HashMap<String,Object> myPro = Service2.getMyProduct(dto);
-		System.out.println("con- my p on");
 		HashMap<String,Object> myWish=Service2.getMyWish(dto);
-		System.out.println("con- my w on");
 		mView.addObject("myPro", myPro);
 		mView.addObject("myWish",myWish);		
 		mView.setViewName("user/mypage");

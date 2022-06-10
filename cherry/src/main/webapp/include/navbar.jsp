@@ -13,7 +13,7 @@
 					<a href="signupform.do">signUp</a>
 				</c:when>
 				<c:otherwise>
-					<a href="">${sessionScope.id}</a>
+					<a href="" id="getId">${sessionScope.id}</a>
 					&emsp;
 					<a href="logout.do">logout</a>
 				</c:otherwise>

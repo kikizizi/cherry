@@ -1,4 +1,4 @@
-	function inputChange() {
+		function inputChange() {
 			var fileInput = document.getElementById("addImage");
 			var file_name = fileInput.files[0].name // 파일명
 			new_p = document.createElement('p');
@@ -33,7 +33,6 @@
 				$("#addImage").trigger("click");
 			}
 		})
-
 		$('#submitBtn').click(function(e) {
 			e.preventDefault();
 

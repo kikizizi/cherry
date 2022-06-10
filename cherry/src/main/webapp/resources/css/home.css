@@ -1,0 +1,54 @@
+@charset "UTF-8";
+#moreDiv {
+	height: 50px;
+	border-top: solid 0.5px #80808026;
+}
+
+#moreProducts {
+	text-align: center;
+	color: #80808094;
+	font-size: 15px;
+	margin-top: 14px;
+}
+
+img {
+	width: 200px;
+	height: 150px;
+	border-radius: 8px;
+	object-fit: cover;
+}
+
+.title {
+	text-overflow: ellipsis;
+	font-weight: 600;
+	margin: 7px 0px 0px;
+	color: black;
+}
+
+.priceWon {
+	color: #ff003b;
+	font-weight: 600;
+	margin: 5px 0px 0px;
+}
+
+.productsArticle {
+	display: inline-block;
+	margin: 15px 21px;
+}
+
+#productsDiv {
+	padding: 30px;
+}
+
+#noSearch {
+	height: 580px;
+	text-align: center;
+	padding-top: 190px;
+	font-size: 16px;
+}
+
+.wishCount {
+	color: black;
+	font-size: 14px;
+	float: right;
+}

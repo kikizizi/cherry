@@ -35,61 +35,10 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <!-- 공통끝 -->
-<style>
-#moreDiv {
-	height: 50px;
-	border-top: solid 0.5px #80808026;
-}
-
-#moreProducts {
-	text-align: center;
-	color: #80808094;
-	font-size: 15px;
-	margin-top: 14px;
-}
-
-img {
-	width: 200px;
-	height: 150px;
-	border-radius: 8px;
-	object-fit: cover;
-}
-
-.title {
-	text-overflow: ellipsis;
-	font-weight: 600;
-	margin: 7px 0px 0px;
-	color: black;
-}
-
-.priceWon {
-	color: #ff003b;
-	font-weight: 600;
-	margin: 5px 0px 0px;
-}
-
-.productsArticle {
-	display: inline-block;
-	margin: 15px 21px;
-}
-
-#productsDiv {
-	padding: 30px;
-}
-
-#noSearch {
-	height: 580px;
-	text-align: center;
-	padding-top: 190px;
-	font-size: 16px;
-}
-
-.wishCount {
-	color: black;
-	font-size: 14px;
-	float: right;
-}
-</style>
+<script
+	src="${pageContext.request.contextPath }/resources/js/homeMorePro.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/home.css" />
 </head>
 <body>
 	<jsp:include page="/include/navbar.jsp"></jsp:include>
@@ -116,7 +65,6 @@ img {
 									<p class="title">${dto.title}</p>
 									<p class="priceWon">${dto.priceWon }
 										<c:if test="${dto.wishCount != 0 }">
-											&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 											<small class="wishCount"><svg
 													xmlns="http://www.w3.org/2000/svg" width="12" height="12"
 													fill="red" class="bi bi-heart" viewBox="0 0 16 14">
@@ -134,63 +82,15 @@ img {
 			<c:if test="${!isEnd}">
 				<div id="moreDiv">
 					<p id="moreProducts">더보기</p>
+					<p id="lastnum" style="display: none;">${lastnum}</p>
 				</div>
 			</c:if>
 		</div>
 	</div>
 	<jsp:include page="/include/footer.jsp"></jsp:include>
-	<script>
-		$(document).ready(function() {
-			var lastnum = ${lastnum};
-			$('#moreProducts').click(function() {
-				$.ajax({
-					url : "moreProducts.do",
-					data : {
-						"category" : $('#category').val(),
-						"search" : $('#search').val(),
-						"num" : lastnum
-					},
-					method : 'GET',
-					dataType : 'json'
-				}).done(function(data) {
-					if (data.isEnd) {
-						$('#moreDiv').attr("style", "display:none;");
-					}
-					lastnum = data.lastnum;
-					for (const item of data.list){
-						const new_a=document.createElement('a');
-						new_a.setAttribute('href',"detail.do?num="+item.num);
-						const new_article=document.createElement('article');
-						new_article.setAttribute('class','productsArticle');
-						const new_img=document.createElement('img');
-						new_img.setAttribute('src','${pageContext.request.contextPath }'+item.imgPathList[0]);						
-						const new_title=document.createElement('p');
-						new_title.innerText=item.title;
-						new_title.setAttribute('class','title');
-						const new_price=document.createElement('p');
-						new_price.innerText=item.priceWon;
-						new_price.setAttribute('class','priceWon');
-						new_article.append(new_img,new_title,new_price);
-						new_a.append(new_article);
-						$('#productsDiv').append(new_a);
-					}
-				})
-			})
-		})
-	</script>
-	<script>
-	//navbar chat 안읽음 표시
-		var sock = new SockJS("/cherry/websocket");
-		var client = Stomp.over(sock);
-		client.connect({},function(){
-			client.subscribe('/topic/getNotice/${sessionScope.id}',function(e){
-				if ($("#chatCount").text()==""){
-					$("#chatCount").text(0);
-				}
-				let count=$("#chatCount").text();
-				$("#chatCount").text(Number(count)+1);
-			})
-		})
-	</script>
+	<c:if test="${sessionScope.id ne null }">
+		<script
+			src="${pageContext.request.contextPath }/resources/js/navbarsock.js"></script>
+	</c:if>
 </body>
 </html>
