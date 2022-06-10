@@ -53,6 +53,7 @@ public class productsController {
 	public String goodsupload(productsDto dto,HttpServletRequest req,HttpSession session) {
 		String id=(String) session.getAttribute("id");
 		dto.setId(id);
+		System.out.println(dto.getExplanation());
 		Service.addProduct(dto, req);
 		return "redirect:home.do";
 	}
@@ -79,5 +80,27 @@ public class productsController {
 	@RequestMapping(value="/conWish.do",method=RequestMethod.GET)
 	public void conWish(HttpServletRequest req) {
 		Service.conWish(req);
+	}
+	
+	@RequestMapping("/moreMyPro")
+	@ResponseBody
+	public HashMap<String,Object> moreMyPro(HttpSession session,HttpServletRequest req){
+		int num=Integer.parseInt(req.getParameter("num"));
+		String id=(String) session.getAttribute("id");
+		productsDto dto= new productsDto();
+		dto.setNum(num);
+		dto.setId(id);
+		return Service.getMyProduct(dto);
+	}
+	
+	@RequestMapping("/moreWish")
+	@ResponseBody
+	public HashMap<String, Object> moreWish(HttpSession session,HttpServletRequest req){
+		int num=Integer.parseInt(req.getParameter("num"));
+		String id=(String) session.getAttribute("id");
+		productsDto dto= new productsDto();
+		dto.setNum(num);
+		dto.setId(id);
+		return Service.getMyWish(dto);
 	}
 }

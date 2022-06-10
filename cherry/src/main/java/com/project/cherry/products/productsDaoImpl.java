@@ -55,6 +55,30 @@ public class productsDaoImpl implements productsDao{
 	public int isWish(productsDto dto) {
 		return session.selectOne("products.isWish",dto);
 	}
+
+	@Override
+	public List<productsDto> getMyProducts(productsDto dto) {
+		System.out.println("d my p on");
+		System.out.println(dto.getNum());
+		System.out.println(dto.getId());
+		return session.selectList("products.getMyProducts",dto);
+	}
+
+	@Override
+	public List<productsDto> getMyWish(productsDto dto) {
+		return session.selectList("products.getMyWish",dto);
+	}
+
+	@Override
+	public int getMyProNum(productsDto dto) {
+		System.out.println("d my p min on");
+		return session.selectOne("products.myProMin",dto);
+	}
+
+	@Override
+	public int getMyWishNum(productsDto dto) {
+		return session.selectOne("products.myWishMin",dto);
+	}
 	
 	
 }

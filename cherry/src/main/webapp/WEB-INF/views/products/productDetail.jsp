@@ -413,6 +413,7 @@ small {
 	</div>
 	<jsp:include page="/include/footer.jsp"></jsp:include>
 	<script>
+		$("#explanation").html($("#explanation").html().replaceAll('\n','<br>'))
 		$("#chat").click(function(){
 			const id='${sessionScope.id}';
 			if (id =="" || id=="${dto.id}"){

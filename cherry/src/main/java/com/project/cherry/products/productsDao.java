@@ -10,4 +10,8 @@ public interface productsDao {
 	public void addWish(productsDto dto);
 	public void delWish(productsDto dto);
 	public int isWish(productsDto dto);
+	public List<productsDto> getMyProducts(productsDto dto);
+	public List<productsDto> getMyWish(productsDto dto);
+	public int getMyProNum(productsDto dto);
+	public int getMyWishNum(productsDto dto);
 }

@@ -191,5 +191,54 @@ public class productsServiceImpl implements productsService {
 			dao.delWish(dto);
 		}
 	}
+	@Override
+	public HashMap<String, Object> getMyProduct(productsDto dto) {
+		List<productsDto> list=dao.getMyProducts(dto);
+		int lastnum=0;
+		System.out.println(dto.getNum());
+		for (productsDto dto1:list) {
+			String jsonImgPaths=dto1.getImgPaths();
+			List<String> imgPathList = new Gson().fromJson(jsonImgPaths, List.class);
+			dto1.setImgPathList(imgPathList);
+			String regdate=dto1.getRegdate();
+			dto1.setRegdate(changeRegdate(regdate));
+			lastnum=dto1.getNum();
+		}
+		boolean isEnd = false;
+		if(dao.getMyProNum(dto)==lastnum) {
+			isEnd=true;
+		}
+		HashMap<String, Object> map =new HashMap<String, Object>();
+		map.put("lastnum",lastnum);
+		map.put("list",list);
+		map.put("isEnd",isEnd);
+		return map;
+	}
+	
+	@Override
+	public HashMap<String, Object> getMyWish(productsDto dto) {
+		List<productsDto> list=dao.getMyWish(dto);
+		List<productsDto> wishList=new ArrayList<productsDto>();
+		int lastnum=0;
+		for (productsDto dto1:list) {
+			productsDto dto2=dao.getDetail(dto1.getNum());
+			String jsonImgPaths=dto2.getImgPaths();
+			List<String> imgPathList = new Gson().fromJson(jsonImgPaths, List.class);
+			dto2.setImgPathList(imgPathList);
+			String regdate=dto1.getRegdate();
+			dto2.setRegdate(changeRegdate(regdate));
+			lastnum=dto2.getNum();
+			wishList.add(dto2);
+		}
+		boolean isEnd = false;
+		if(dao.getMyWishNum(dto)==lastnum) {
+			isEnd=true;
+		}
+		HashMap<String, Object> map =new HashMap<String, Object>();
+		map.put("lastnum",lastnum);
+		map.put("list",wishList);
+		map.put("isEnd",isEnd);
+		return map;
+	}
 	
 }

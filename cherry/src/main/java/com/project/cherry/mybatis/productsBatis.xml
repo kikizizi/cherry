@@ -40,10 +40,39 @@
 		(SELECT result1.*, ROWNUM as rnum
 		FROM
 		(SELECT *
-		FROM products
+		FROM
+		products
 		<include refid="searchCondition" />
 		ORDER BY num DESC) result1)
 		WHERE issaled=0 and rnum between 1 and 9
+	</select>
+
+	<select id="isWish"
+		parameterType="com.project.cherry.products.productsDto"
+		resultType="int">
+		select count(*) from wishList where num=#{num} and id=#{id}
+	</select>
+
+	<select id="getMyProducts"
+		resultType="com.project.cherry.products.productsDto"
+		parameterType="com.project.cherry.products.productsDto">
+		select * from
+		(select result1.*, rownum as rnum from
+		(select * from products where id=#{id} and #{num}>num order by num
+		desc)
+		result1)
+		where rnum between 1 and 6
+	</select>
+
+	<select id="getMyWish"
+		resultType="com.project.cherry.products.productsDto"
+		parameterType="com.project.cherry.products.productsDto">
+		select * from
+		(select result1.*, rownum as rnum from
+		(select * from wishlist where id=#{id} and #{num}>num order by num
+		desc)
+		result1)
+		where rnum between 1 and 6
 	</select>
 
 	<select id="minNum" resultType="int"
@@ -57,29 +86,45 @@
 		where issaled=0
 	</select>
 
+	<select id="myWishMin" resultType="int"
+		parameterType="com.project.cherry.products.productsDto">
+		select min(num) from
+		(select num from wishlist where id=#{id}
+		and #{num}>num)
+	</select>
+
+	<select id="myProMin" resultType="int"
+		parameterType="com.project.cherry.products.productsDto">
+		select min(num) from
+		(select num from products where
+		id=#{id} and #{num}>num)
+	</select>
+
 	<select id="getDetail"
 		resultType="com.project.cherry.products.productsDto"
 		parameterType="int">
 		select * from products where num=#{num}
 	</select>
-	
+
 	<update id="addViewCount" parameterType="int">
-		update products set viewCount=viewCount+1 where num=#{num}
+		update products set
+		viewCount=viewCount+1 where num=#{num}
 	</update>
-	
-	<update id="updateProductForWish" parameterType="com.project.cherry.products.productsDto">
-		update products set wishCount=wishCount+#{wishCount} where num=#{num}
+
+	<update id="updateProductForWish"
+		parameterType="com.project.cherry.products.productsDto">
+		update products set wishCount=wishCount+#{wishCount}
+		where num=#{num}
 	</update>
-	
-	<insert id="addWish" parameterType="com.project.cherry.products.productsDto">
+
+	<insert id="addWish"
+		parameterType="com.project.cherry.products.productsDto">
 		insert into wishlist values(#{num},#{id},sysdate)
 	</insert>
-	
-	<delete id="delWish" parameterType="com.project.cherry.products.productsDto">
+
+	<delete id="delWish"
+		parameterType="com.project.cherry.products.productsDto">
 		delete from wishlist where num=#{num} and id=#{id}
 	</delete>
-	
-	<select id="isWish" parameterType="com.project.cherry.products.productsDto" resultType="int">
-		select count(*) from wishList where num=#{num} and id=#{id}
-	</select>
+
 </mapper>

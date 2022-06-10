@@ -43,34 +43,198 @@
 	margin-bottom: 30px;
 	border: solid 0.5px #80808026;
 }
+
+.moreDiv {
+	height: 50px;
+	border-top: solid 0.5px #80808026;
+}
+
+.moreDiv p {
+	text-align: center;
+	color: #80808094;
+	font-size: 15px;
+	margin-top: 14px;
+}
+
+img {
+	width: 200px;
+	height: 150px;
+	border-radius: 8px;
+	object-fit: cover;
+}
+
+.title {
+	text-overflow: ellipsis;
+	font-weight: 600;
+	margin: 7px 0px 0px;
+	color: black;
+}
+
+.priceWon {
+	color: #ff003b;
+	font-weight: 600;
+	margin: 5px 0px 0px;
+}
+
+.productsArticle {
+	display: inline-block;
+	margin: 15px 21px;
+}
+
+#productsDiv {
+	padding: 30px;
+}
+
+#noSearch {
+	height: 580px;
+	text-align: center;
+	padding-top: 190px;
+	font-size: 16px;
+}
+
+.wishCount {
+	color: black;
+	font-size: 14px;
+	float: right;
+}
+
+.head {
+	margin: 10px 0px 0px 10px;
+	font-weight: bold;
+}
+
+hr {
+	margin: 6px 0px 0 0px;
+}
+
+.inner {
+	padding:10px 30px;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="/include/navbar.jsp"></jsp:include>
 	<div id="m1">
-		<div id="m1_1">	
-			<div id="m2" style="height:300px">
-				
+		<div id="m1_1">
+			<div id="m2">
+				<p class="head">Wish List</p>
+				<hr />
+				<div class="inner" id="myWish">
+					<c:forEach var="dto" items="${myWish.list}">
+						<a href="detail.do?num=${dto.num }">
+							<article class="productsArticle">
+								<img
+									src="${pageContext.request.contextPath }${dto.imgPathList[0]}"
+									alt="" />
+								<p class="title">${dto.title}</p>
+								<p class="priceWon">${dto.priceWon }</p>
+							</article>
+						</a>
+					</c:forEach>
+				</div>
+				<c:if test="${!myWish.isEnd}">
+					<div class="moreDiv" id="moreWishDiv">
+						<p id="moreWish">더보기</p>
+						<p id="myWishNum" style="display: none;">${myWish.lastnum}</p>
+					</div>
+				</c:if>
 			</div>
-			<div id="m3" style="height:300px">
-				
+			<div id="m3">
+				<p class="head">My Goods</p>
+				<hr />
+				<div class="inner" id="myProducts">
+					<c:forEach var="dto" items="${myPro.list}">
+						<a href="detail.do?num=${dto.num }">
+							<article class="productsArticle">
+								<img
+									src="${pageContext.request.contextPath }${dto.imgPathList[0]}"
+									alt="" />
+								<p class="title">${dto.title}</p>
+								<p class="priceWon">${dto.priceWon }</p>
+							</article>
+						</a>
+					</c:forEach>
+				</div>
+				<c:if test="${!myPro.isEnd}">
+					<div class="moreDiv" id="moreProDiv">
+						<p id="moreProducts">더보기</p>
+						<p id="myProNum" style="display: none;">${myPro.lastnum}</p>
+					</div>
+				</c:if>
 			</div>
-		</div>		
+		</div>
 	</div>
 	<jsp:include page="/include/footer.jsp"></jsp:include>
 	<script>
-	//navbar chat 안읽음 표시
-		var sock = new SockJS("/cherry/websocket");
-		var client = Stomp.over(sock);
-		client.connect({},function(){
-			client.subscribe('/topic/getNotice/${sessionScope.id}',function(e){
-				if ($("#chatCount").text()==""){
-					$("#chatCount").text(0);
+	$(document).ready(function() {
+		$('#moreProducts').click(function() {
+			$.ajax({
+				url : "moreMyPro",
+				data : {
+					"num" : $("#myProNum").text()
+				},
+				method : 'GET',
+				dataType : 'json'
+			}).done(function(data) {
+				console.log(data.isEnd)
+				if (data.isEnd) {
+					$('#moreProDiv').attr("style", "display:none;");
 				}
-				let count=$("#chatCount").text();
-				$("#chatCount").text(Number(count)+1);
+				$("#myProNum").html(data.lastnum);
+				for (const item of data.list){
+					const new_a=document.createElement('a');
+					new_a.setAttribute('href',"detail.do?num="+item.num);
+					const new_article=document.createElement('article');
+					new_article.setAttribute('class','productsArticle');
+					const new_img=document.createElement('img');
+					new_img.setAttribute('src','/cherry'+item.imgPathList[0]);						
+					const new_title=document.createElement('p');
+					new_title.innerText=item.title;
+					new_title.setAttribute('class','title');
+					const new_price=document.createElement('p');
+					new_price.innerText=item.priceWon;
+					new_price.setAttribute('class','priceWon');
+					new_article.append(new_img,new_title,new_price);
+					new_a.append(new_article);
+					$('#myProducts').append(new_a);
+				}
 			})
 		})
+		$('#moreWish').click(function() {
+			$.ajax({
+				url : "moreWish",
+				data : {
+					"num" : $("#myWishNum").text()
+				},
+				method : 'GET',
+				dataType : 'json'
+			}).done(function(data) {
+				if (data.isEnd) {
+					$('#moreWishDiv').attr("style", "display:none;");
+				}
+				$("#myWishNum").html(data.lastnum);
+				for (const item of data.list){
+					const new_a=document.createElement('a');
+					new_a.setAttribute('href',"detail.do?num="+item.num);
+					const new_article=document.createElement('article');
+					new_article.setAttribute('class','productsArticle');
+					const new_img=document.createElement('img');
+					new_img.setAttribute('src','/cherry'+item.imgPathList[0]);						
+					const new_title=document.createElement('p');
+					new_title.innerText=item.title;
+					new_title.setAttribute('class','title');
+					const new_price=document.createElement('p');
+					new_price.innerText=item.priceWon;
+					new_price.setAttribute('class','priceWon');
+					new_article.append(new_img,new_title,new_price);
+					new_a.append(new_article);
+					$('#myWish').append(new_a);
+				}
+			})
+		})
+	})
 	</script>
+	<script
+		src="${pageContext.request.contextPath }/resources/js/navbarsock.js"></script>
 </body>
 </html>
