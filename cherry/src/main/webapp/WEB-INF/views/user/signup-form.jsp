@@ -46,10 +46,12 @@
 				<label for="pwd2"><b>비밀번호 확인</b></label> <br /> <input
 					type="password" class="form-control" id="pwd2" name="pwd2" />
 			</div>
+			<!-- 
 			<div>
 				<label for="email"><b>이메일</b></label> <br /> <input type="email"
 					class="form-control" id="email" name="email" />
 			</div>
+			 -->
 			<button id="submitBtn">SIGN UP</button>
 		</form>
 	</div>

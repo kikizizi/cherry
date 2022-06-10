@@ -4,8 +4,8 @@
 	<insert id="signup"
 		parameterType="com.project.cherry.user.userDto">
 		insert into users
-		(num,id,pwd,email,regdate)
-		values(users_seq.nextval,#{id},#{pwd},#{email},sysdate)
+		(num,id,pwd,regdate)
+		values(users_seq.nextval,#{id},#{pwd},sysdate)
 	</insert>
 	<select id="userData" parameterType="String" resultType="com.project.cherry.user.userDto">
 		select * from users where id=#{id}	

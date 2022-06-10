@@ -51,22 +51,23 @@
 		}
 		$('#pwd').keyup(checkPwd)
 		$('#pwd2').keyup(checkPwd)
-		$('#email').keyup(function(){
-			$('#email').removeClass('is-invalid');
-			$('#email').removeClass('is-valid');
-			let email=$('#email').val()
-			const reg_email=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-			if(!reg_email.test(email)){
-				emailPass=false;
-				$('#email').addClass('is-invalid');
-				return;
-			}
-			emailPass=true;
-			$('#email').addClass('is-valid')
-		})
+		//$('#email').keyup(function(){
+		//	$('#email').removeClass('is-invalid');
+		//	$('#email').removeClass('is-valid');
+		//	let email=$('#email').val()
+		//	const reg_email=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		//	if(!reg_email.test(email)){
+		//		emailPass=false;
+		//		$('#email').addClass('is-invalid');
+		//		return;
+		//	}
+		//	emailPass=true;
+		//	$('#email').addClass('is-valid')
+		//})
 		$('#submitBtn').click(function(e){
 			e.preventDefault();
-			if(idPass&&pwdPass&&emailPass){
+			//if(idPass&&pwdPass&&emailPass){
+			if(idPass&&pwdPass){
 				swal("회원가입 되었습니다")
 				.then(()=>{
 					$('form').submit();	
