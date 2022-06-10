@@ -15,4 +15,6 @@ public interface productsService {
 	public void conWish(HttpServletRequest req);
 	public HashMap<String, Object> getMyProduct(productsDto dto);
 	public HashMap<String, Object> getMyWish(productsDto dto);
+	public void salesCompleted(int num);
+	public void delProduct(int num);
 }

@@ -23,14 +23,14 @@
 	<nav class="navbar navbar-expand-lg navbar-light">
 		<div class="container-fluid">
 			<div class="navbar-brand">
-				<a href="${pageContext.request.contextPath }/home.do"><b>CHERRY</b><br />
+				<a href="${pageContext.request.contextPath }/home"><b>CHERRY</b><br />
 					<b>Market</b></a>
 			</div>
 
 			<div id="navli">
 
 				<!-- 검색바 -->
-				<form action="${pageContext.request.contextPath }/home.do">
+				<form action="${pageContext.request.contextPath }/home">
 					<div class="input-group">
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default dropdown-toggle"

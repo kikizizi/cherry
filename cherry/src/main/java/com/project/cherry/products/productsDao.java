@@ -14,4 +14,6 @@ public interface productsDao {
 	public List<productsDto> getMyWish(productsDto dto);
 	public int getMyProNum(productsDto dto);
 	public int getMyWishNum(productsDto dto);
+	public void salesCompleted(int num);
+	public void delProduct(int num);
 }

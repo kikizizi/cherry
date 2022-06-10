@@ -26,7 +26,7 @@ public class productsController {
 	@Autowired
 	private chatService Service2;
 	
-	@RequestMapping(value={"/","/home.do"})
+	@RequestMapping(value={"/","/home"})
 	public String home(HttpServletRequest req,HttpSession session) {
 		int num;
 		if (req.getParameter("num")==null) {
@@ -54,7 +54,7 @@ public class productsController {
 		String id=(String) session.getAttribute("id");
 		dto.setId(id);
 		Service.addProduct(dto, req);
-		return "redirect:home.do";
+		return "redirect:home";
 	}
 	@RequestMapping(value="/moreProducts.do",method=RequestMethod.GET)
 	@ResponseBody
@@ -101,5 +101,19 @@ public class productsController {
 		dto.setNum(num);
 		dto.setId(id);
 		return Service.getMyWish(dto);
+	}
+	
+	@RequestMapping("/salesCompleted")
+	public String salesCompleted(HttpServletRequest req) {
+		int num= Integer.parseInt(req.getParameter("num"));
+		Service.salesCompleted(num);
+		return "redirect:home";
+	}
+	
+	@RequestMapping("/delProduct")
+	public String delProduct(HttpServletRequest req) {
+		int num= Integer.parseInt(req.getParameter("num"));
+		Service.delProduct(num);
+		return "redirect:home";
 	}
 }

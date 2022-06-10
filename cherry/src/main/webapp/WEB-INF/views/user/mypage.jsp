@@ -108,7 +108,15 @@ hr {
 }
 
 .inner {
-	padding:10px 30px;
+	padding: 10px 30px;
+}
+
+.info{
+	margin: 82px 0;
+	font-weight: bold;
+}
+.salesCompleted{
+	filter: grayscale(100%);
 }
 </style>
 </head>
@@ -120,17 +128,25 @@ hr {
 				<p class="head">Wish List</p>
 				<hr />
 				<div class="inner" id="myWish">
-					<c:forEach var="dto" items="${myWish.list}">
-						<a href="detail.do?num=${dto.num }">
-							<article class="productsArticle">
-								<img
-									src="${pageContext.request.contextPath }${dto.imgPathList[0]}"
-									alt="" />
-								<p class="title">${dto.title}</p>
-								<p class="priceWon">${dto.priceWon }</p>
-							</article>
-						</a>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${fn:length(myWish.list) eq 0 }">
+							<p class="info">관심목록을 추가해보세요</p>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="dto" items="${myWish.list}">
+								<a href="detail.do?num=${dto.num }">
+									<article class="productsArticle">
+										<img
+											src="${pageContext.request.contextPath }${dto.imgPathList[0]}"
+											<c:if test="${dto.isSaled eq 1 }"> class="salesCompleted" </c:if>
+											alt="" />
+										<p class="title">${dto.title}</p>
+										<p class="priceWon">${dto.priceWon }</p>
+									</article>
+								</a>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<c:if test="${!myWish.isEnd}">
 					<div class="moreDiv" id="moreWishDiv">
@@ -143,17 +159,24 @@ hr {
 				<p class="head">My Goods</p>
 				<hr />
 				<div class="inner" id="myProducts">
-					<c:forEach var="dto" items="${myPro.list}">
-						<a href="detail.do?num=${dto.num }">
-							<article class="productsArticle">
-								<img
-									src="${pageContext.request.contextPath }${dto.imgPathList[0]}"
-									alt="" />
-								<p class="title">${dto.title}</p>
-								<p class="priceWon">${dto.priceWon }</p>
-							</article>
-						</a>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${fn:length(myPro.list) eq 0 }">
+							<p class="info">판매상품을 등록해보세요</p>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="dto" items="${myPro.list}">
+								<a href="detail.do?num=${dto.num }">
+									<article class="productsArticle">
+										<img src="${pageContext.request.contextPath }${dto.imgPathList[0]}"
+											<c:if test="${dto.isSaled eq 1 }"> class="salesCompleted" </c:if>
+											alt="" />
+										<p class="title">${dto.title}</p>
+										<p class="priceWon">${dto.priceWon }</p>
+									</article>
+								</a>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<c:if test="${!myPro.isEnd}">
 					<div class="moreDiv" id="moreProDiv">
@@ -219,7 +242,10 @@ hr {
 					const new_article=document.createElement('article');
 					new_article.setAttribute('class','productsArticle');
 					const new_img=document.createElement('img');
-					new_img.setAttribute('src','/cherry'+item.imgPathList[0]);						
+					new_img.setAttribute('src','/cherry'+item.imgPathList[0]);
+					if (item.isSaled==1){
+						new_img.setAttribute('class','salesCompleted');
+					}
 					const new_title=document.createElement('p');
 					new_title.innerText=item.title;
 					new_title.setAttribute('class','title');

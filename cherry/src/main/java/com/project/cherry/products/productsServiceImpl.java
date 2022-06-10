@@ -239,5 +239,13 @@ public class productsServiceImpl implements productsService {
 		map.put("isEnd",isEnd);
 		return map;
 	}
+	@Override
+	public void salesCompleted(int num) {
+		dao.salesCompleted(num);
+	}
+	@Override
+	public void delProduct(int num) {
+		dao.delProduct(num);
+	}
 	
 }

@@ -7,18 +7,18 @@
 				where (title like '%'||#{search}||'%'
 				or explanation
 				like '%'||#{search}||'%')
-				and category=#{category} and #{num}>num
+				and category=#{category} and #{num}>num and issaled=0 
 			</when>
 			<when test="search!=null">
 				where (title like '%'||#{search}||'%'
 				or explanation
-				like '%'||#{search}||'%') and #{num}>=num
+				like '%'||#{search}||'%') and #{num}>=num and issaled=0 
 			</when>
 			<when test="category!='전체'">
-				where category=#{category} and #{num}>num
+				where category=#{category} and #{num}>num and issaled=0 
 			</when>
 			<otherwise>
-				where #{num}>num
+				where #{num}>num and issaled=0 
 			</otherwise>
 		</choose>
 	</sql>
@@ -44,7 +44,7 @@
 		products
 		<include refid="searchCondition" />
 		ORDER BY num DESC) result1)
-		WHERE issaled=0 and rnum between 1 and 9
+		WHERE rnum between 1 and 9
 	</select>
 
 	<select id="isWish"
@@ -126,5 +126,12 @@
 		parameterType="com.project.cherry.products.productsDto">
 		delete from wishlist where num=#{num} and id=#{id}
 	</delete>
-
+	
+	<update id="salesCompleted" parameterType="int">
+		update products set isSaled=1 where num=#{num}
+	</update>
+	
+	<delete id="delProduct">
+		delete from products where num=#{num}
+	</delete>
 </mapper>

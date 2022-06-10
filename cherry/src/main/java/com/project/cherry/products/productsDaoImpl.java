@@ -87,6 +87,16 @@ public class productsDaoImpl implements productsDao{
 		}
 		return result;
 	}
+
+	@Override
+	public void salesCompleted(int num) {
+		session.update("products.salesCompleted", num);
+	}
+
+	@Override
+	public void delProduct(int num) {
+		session.delete("products.delProduct", num);
+	}
 	
 	
 }

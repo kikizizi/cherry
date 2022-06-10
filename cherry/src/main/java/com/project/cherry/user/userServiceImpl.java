@@ -31,7 +31,7 @@ public class userServiceImpl implements userService{
 		Arrays.sort(ida);
 		String roomId=String.join("_", ida);
 		chatDto.setRoomId(roomId);
-		chatDto.setText("방문해 주셔서 감사합니다. 문제가 있으시면 저에게 응답해주세요");
+		chatDto.setText("방문해 주셔서 감사합니다. ^^");
 		chatDto.setRegdate(System.currentTimeMillis());
 		dao.signup(dto);
 		dao2.createRoom(chatDto);
