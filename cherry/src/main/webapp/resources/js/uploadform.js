@@ -33,16 +33,44 @@
 				$("#addImage").trigger("click");
 			}
 		})
-		$('#submitBtn').click(function(e) {
-			e.preventDefault();
-
-			let imgs = $('.imageInputs');
-			for (let i = 0; i < imgs.length; i++) {
-				imgs[i].setAttribute('name', 'img' + i);
-			}
-			$('#addImage').remove();
-			$('#addForm').submit();
-		})
 		$('#explanation').keyup(function() {
 			$('#charNum').text($('#explanation').val().length + '자/2000자');
 		})
+				
+		$("#submitBtn").click(function(e){
+			e.preventDefault();
+			if($("#title").val()==""){
+				swal({
+					  title: "제목을 입력해주세요",
+					  icon: "warning",
+					  button: "ok",
+					});
+			}else if ($("#price").val()==""){
+				swal({
+					  title: "가격을 입력해주세요",
+					  icon: "warning",
+					  button: "ok",
+					});
+			}else if($("#category2").val()=="선택"){
+				swal({
+					  title: "카테고리를 선택해주세요",
+					  icon: "warning",
+					  button: "ok",
+					});
+			}else if($("#explanation").val().length<10){
+				swal({
+					  title: "설명을 입력해주세요",
+					  text:"최소 10자 이상",
+					  icon: "warning",
+					  button: "ok",
+					});
+			}else{
+				let imgs = $('.imageInputs');
+				for (let i = 0; i < imgs.length; i++) {
+					imgs[i].setAttribute('name', 'img' + i);
+				}
+				$('#addImage').remove();
+				$('#addForm').submit();
+			}
+		})
+		

@@ -53,7 +53,6 @@ public class productsController {
 	public String goodsupload(productsDto dto,HttpServletRequest req,HttpSession session) {
 		String id=(String) session.getAttribute("id");
 		dto.setId(id);
-		System.out.println(dto.getExplanation());
 		Service.addProduct(dto, req);
 		return "redirect:home.do";
 	}

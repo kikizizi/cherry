@@ -58,7 +58,7 @@
 					<hr />
 					<div class="inputDiv">
 						<label for="category">카테고리</label> <select name="category"
-							id="category">
+							id="category2">
 							<option value="선택">선택</option>
 							<option value="디지털기기">디지털기기</option>
 							<option value="생활가전">생활가전</option>
